@@ -26,12 +26,14 @@ backend/
 ## Setup
 
 1. Create and activate virtual environment:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -39,11 +41,13 @@ pip install -r requirements.txt
 ## Running the Application
 
 Start the development server:
+
 ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at:
+
 - API: http://localhost:8000
 - Interactive docs (Swagger): http://localhost:8000/docs
 - Alternative docs (ReDoc): http://localhost:8000/redoc
@@ -55,6 +59,7 @@ The API will be available at:
 ## Development
 
 The project follows a standard FastAPI structure:
+
 - **api/**: API routes organized by version
 - **core/**: Core configuration and settings
 - **db/**: Database setup and connection
