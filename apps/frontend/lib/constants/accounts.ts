@@ -1,1 +1,1 @@
-export const ACCOUNT_NAME = "Youtube"
+export const ACCOUNT_NAME = "Youtube";

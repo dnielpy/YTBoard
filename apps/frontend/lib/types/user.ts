@@ -1,8 +1,8 @@
-import { Account } from "./Account"
+import { Account } from "./Account";
 
 export type User = {
-    id: string
-    email: string
-    imageURL: string
-    accounts: Account[]
-}
+  id: string;
+  email: string;
+  imageURL: string;
+  accounts: Account[];
+};

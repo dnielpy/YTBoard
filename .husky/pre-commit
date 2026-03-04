@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
+set -e
 
 pnpm run commit:format
+git add -A
 pnpm run commit:frontend
