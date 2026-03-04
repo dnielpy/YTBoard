@@ -36,7 +36,12 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers locale={locale}>{children}</Providers>
+        <Providers locale={locale}>
+          <div className="min-h-screen bg-background text-foreground">
+            <header className="flex items-center justify-end px-6 py-4"></header>
+            <main className="px-6 pb-10">{children}</main>
+          </div>
+        </Providers>
       </body>
     </html>
   );

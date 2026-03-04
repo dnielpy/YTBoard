@@ -3,6 +3,7 @@ import { routing } from "@/app/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export function Providers({
   locale,
@@ -16,6 +17,10 @@ export function Providers({
   setRequestLocale(locale);
 
   return (
-    <NextIntlClientProvider locale={locale}>{children}</NextIntlClientProvider>
+    <ThemeProvider>
+      <NextIntlClientProvider locale={locale}>
+        {children}
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }
