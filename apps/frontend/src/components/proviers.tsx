@@ -3,7 +3,7 @@ import { routing } from "@/app/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/system/theme-provider";
 
 export function Providers({
   locale,

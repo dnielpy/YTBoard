@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/proviers";
+import { Appbar } from "@/components/system/appbar";
 import { generateStaticParams } from "@/app/i18n/generate-static-params";
 import { ReactNode } from "react";
 import "@/app/globals.css";
@@ -38,7 +39,7 @@ export default async function LocaleLayout({
       >
         <Providers locale={locale}>
           <div className="min-h-screen bg-background text-foreground">
-            <header className="flex items-center justify-end px-6 py-4"></header>
+            <Appbar />
             <main className="px-6 pb-10">{children}</main>
           </div>
         </Providers>
