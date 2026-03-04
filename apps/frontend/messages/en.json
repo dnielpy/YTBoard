@@ -1,6 +1,13 @@
 {
     "home": {
-        "title": "Hello!",
-        "subtitle": "Welcome to my app"
+        "title": "Welcome to the Control Panel",
+        "subtitle": "Manage your application from here"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "youtube": "YouTube",
+        "statistics": "Statistics",
+        "thumbnail": "Thumbnail",
+        "settings": "Settings"
     }
 }

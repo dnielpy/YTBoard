@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/proviers";
 import { Appbar } from "@/components/system/appbar";
+import { AppSidebar } from "@/components/system/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { generateStaticParams } from "@/app/i18n/generate-static-params";
 import { ReactNode } from "react";
 import "@/app/globals.css";
@@ -38,10 +40,13 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers locale={locale}>
-          <div className="min-h-screen bg-background text-foreground">
-            <Appbar />
-            <main className="px-6 pb-10">{children}</main>
-          </div>
+          <SidebarProvider>
+            <AppSidebar />
+            <div className="flex min-h-screen flex-1 flex-col bg-background text-foreground">
+              <Appbar />
+              <main className="flex-1 px-6 pb-10">{children}</main>
+            </div>
+          </SidebarProvider>
         </Providers>
       </body>
     </html>
