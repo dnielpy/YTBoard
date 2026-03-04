@@ -4,7 +4,8 @@ import { useTransition } from "react";
 import { usePathname, useRouter } from "@/app/i18n/navigation";
 import { routing } from "@/app/i18n/routing";
 import { ThemeToggle } from "@/components/system/theme-toggle";
-import { Languages, ChevronsUpDown, Bell, Check, Loader2 } from "lucide-react";
+import { Languages, ChevronsUpDown, Check, Loader2 } from "lucide-react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -86,7 +87,7 @@ function LocaleSwitcher() {
 export function Appbar() {
   return (
     <header className="flex items-center justify-between gap-4 px-3 py-2 text-sm shadow-sm">
-      <div className="font-medium">Inicio</div>
+      <SidebarTrigger />
 
       <div className="flex items-center gap-2 sm:gap-3">
         <ThemeToggle />

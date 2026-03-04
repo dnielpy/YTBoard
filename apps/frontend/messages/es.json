@@ -1,6 +1,13 @@
 {
     "home": {
-        "title": "¡Hola!",
-        "subtitle": "Bienvenido a mi app"
+        "title": "Bienvenido al Panel de Control",
+        "subtitle": "Administra tu aplicación desde aquí"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "youtube": "YouTube",
+        "statistics": "Estadísticas",
+        "thumbnail": "Miniatura",
+        "settings": "Configuración"
     }
 }
