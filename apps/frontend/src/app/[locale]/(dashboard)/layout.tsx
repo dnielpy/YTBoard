@@ -43,7 +43,6 @@ export default async function LocaleLayout({
           <SidebarProvider>
             <AppSidebar />
             <div className="flex min-h-screen flex-1 flex-col bg-background text-foreground">
-              <Appbar />
               <main className="flex-1 px-6 pb-10">{children}</main>
             </div>
           </SidebarProvider>

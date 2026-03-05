@@ -1,11 +1,7 @@
-"use client";
-
-import { useTransition } from "react";
+import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/app/i18n/navigation";
-import { routing } from "@/app/i18n/routing";
-import { ThemeToggle } from "@/components/system/theme-toggle";
-import { Languages, ChevronsUpDown, Check, Loader2 } from "lucide-react";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useTransition } from "react";
+import { cn } from "../../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,14 +11,10 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useLocale } from "next-intl";
-import { cn } from "../../../lib/utils";
+import { Languages, ChevronsUpDown, Check, Loader2, Globe } from "lucide-react";
+import { routing } from "@/app/i18n/routing";
 
-const userEmail = "superadmin@gmail.com";
-const userInitial = userEmail.charAt(0).toUpperCase();
-
-function LocaleSwitcher() {
+export const LocaleSwitcher = () => {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -41,16 +33,10 @@ function LocaleSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="h-10 gap-2 px-3 text-sm font-medium"
+          className="text-sm font-medium"
           aria-label="Switch language"
         >
-          <span className="inline-flex items-center gap-1">
-            <Languages className="h-4 w-4" />
-            <span className="hidden sm:inline">
-              {locale === "es" ? "Español" : "English"}
-            </span>
-          </span>
-          <ChevronsUpDown className="h-4 w-4" />
+          <Globe />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[160px]">
@@ -82,26 +68,4 @@ function LocaleSwitcher() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
-
-export function Appbar() {
-  return (
-    <header className="flex items-center justify-between gap-4 px-3 py-2 text-sm shadow-sm">
-      <SidebarTrigger />
-
-      <div className="flex items-center gap-2 sm:gap-3">
-        <ThemeToggle />
-
-        <LocaleSwitcher />
-
-        <div className="hidden items-center gap-2 px-4 py-3 sm:flex rounded-md">
-          <span className="text-sm  ">{userEmail}</span>
-        </div>
-
-        <Avatar className="h-10 w-10  border border-border">
-          <AvatarFallback className="bg-white/10">{userInitial}</AvatarFallback>
-        </Avatar>
-      </div>
-    </header>
-  );
-}
+};
