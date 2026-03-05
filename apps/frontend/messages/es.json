@@ -15,5 +15,14 @@
         "description": "Estamos mejorando la plataforma para brindarte una experiencia más rápida y estable. Gracias por tu paciencia.",
         "home": "Volver al inicio",
         "retry": "Reintentar ahora"
+    },
+    "youtube": {
+        "statistics": {
+            "header": {
+                "title": "Estadísticas de Youtube",
+                "pretitle": "Youtube",
+                "subtitle": "Snapshot rápido de vistas, seguidores y monetización."
+            }
+        }
     }
 }
