@@ -9,5 +9,11 @@
         "statistics": "Estadísticas",
         "thumbnail": "Miniatura",
         "settings": "Configuración"
+    },
+    "maintenance": {
+        "title": "Estamos en mantenimiento",
+        "description": "Estamos mejorando la plataforma para brindarte una experiencia más rápida y estable. Gracias por tu paciencia.",
+        "home": "Volver al inicio",
+        "retry": "Reintentar ahora"
     }
 }

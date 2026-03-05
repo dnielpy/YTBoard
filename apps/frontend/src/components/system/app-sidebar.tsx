@@ -65,10 +65,7 @@ export function AppSidebar() {
               >
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      isActive={pathname.startsWith("/youtube")}
-                      className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
-                    >
+                    <SidebarMenuButton className="data-[active=true]:bg-primary data-[active=true]:text-white">
                       <Youtube />
                       <span>{t("youtube")}</span>
                       <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
@@ -81,10 +78,10 @@ export function AppSidebar() {
                         <SidebarMenuSubButton
                           asChild
                           isActive={pathname === "/youtube/statistics"}
-                          className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                          className="data-[active=true]:bg-primary data-[active=true]:text-white"
                         >
                           <Link href="/youtube/statistics">
-                            <BarChart3 />
+                            <BarChart3 className="text-white" />
                             <span>{t("statistics")}</span>
                           </Link>
                         </SidebarMenuSubButton>
@@ -93,10 +90,10 @@ export function AppSidebar() {
                       <SidebarMenuSubItem>
                         <SidebarMenuSubButton
                           asChild
-                          isActive={pathname === "/youtube/thumbnail"}
-                          className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                          isActive={pathname === "/youtube/thumbnails"}
+                          className="data-[active=true]:bg-primary data-[active=true]:text-white"
                         >
-                          <Link href="/youtube/thumbnail">
+                          <Link href="/youtube/thumbnails">
                             <Image />
                             <span>{t("thumbnail")}</span>
                           </Link>

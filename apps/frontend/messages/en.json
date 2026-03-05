@@ -9,5 +9,11 @@
         "statistics": "Statistics",
         "thumbnail": "Thumbnail",
         "settings": "Settings"
+    },
+    "maintenance": {
+        "title": "We’re under maintenance",
+        "description": "We’re improving the platform to give you a faster and more stable experience. Thanks for your patience.",
+        "home": "Back to home",
+        "retry": "Retry now"
     }
 }
