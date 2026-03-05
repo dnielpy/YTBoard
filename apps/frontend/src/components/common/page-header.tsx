@@ -6,9 +6,9 @@ interface Props {
 
 export const PageHeader = ({ title, subtitle, pretitle }: Props) => {
   return (
-    <header className={"flex flex-col gap-2"}>
+    <header className={"flex flex-col gap-1 py-4"}>
       {<p className="text-sm uppercase text-muted-foreground">{pretitle}</p>}
-      <h1 className="text-3xl font-semibold leading-tight text-foreground">
+      <h1 className="text-2xl font-semibold leading-tight text-foreground">
         {title}
       </h1>
       {<p className="text-muted-foreground">{subtitle}</p>}

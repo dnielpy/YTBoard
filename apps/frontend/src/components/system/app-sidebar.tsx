@@ -10,6 +10,7 @@ import {
   Image,
   Settings,
   ChevronRight,
+  SeparatorHorizontal,
 } from "lucide-react";
 import {
   Sidebar,
@@ -29,18 +30,30 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { ThemeToggle } from "./theme-toggle";
+import { LocaleSwitcher } from "./locale-switcher";
+import { Separator } from "radix-ui";
+import { UserAuthBadge } from "./user-auth-badge";
 
 export function AppSidebar() {
   const t = useTranslations("sidebar");
   const pathname = usePathname();
 
   return (
-    <Sidebar>
-      <SidebarHeader className="px-4 py-4">
-        <span className="text-lg font-bold">YTBoard</span>
+    <Sidebar className="flex h-screen flex-col border-r ">
+      <SidebarHeader className="border-b">
+        <div className="grid sm:grid-cols-2">
+          <div className="py-1">
+            <span className="text-lg font-bold">YTBoard</span>
+          </div>
+          <div className="flex justify-end align-end">
+            <ThemeToggle />
+            <LocaleSwitcher />
+          </div>
+        </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="flex-1">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -121,6 +134,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <div className="border-t p-4">
+        <UserAuthBadge />
+      </div>
     </Sidebar>
   );
 }
