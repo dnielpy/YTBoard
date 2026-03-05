@@ -1,5 +1,9 @@
-import { MaitenancePage } from "@/components/system/maitenance-page";
+import { YoutubeStatisticsContainer } from "@/module/youtube/statistics/components/youtube-statistics-container";
 
-export default function StatisticsPage() {
-  return <MaitenancePage></MaitenancePage>;
+export default async function StatisticsPage() {
+  return (
+    <div>
+      <YoutubeStatisticsContainer></YoutubeStatisticsContainer>
+    </div>
+  );
 }
