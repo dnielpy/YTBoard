@@ -1,5 +1,5 @@
-import { LoginContainer } from "@/module/youtube/auth/login/containers/login-container";
+import { WelcomeContainer } from "@/module/auth/welcome/containers/welcome-container";
 
 export default function LoginPage() {
-  return <LoginContainer />;
+  return <WelcomeContainer />;
 }

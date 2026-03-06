@@ -6,11 +6,9 @@ import { YoutubeIcon } from "./youtube-icon";
 export const HeroCTA = ({
   phaseIndex,
   onLogin,
-  onRegister,
 }: {
   phaseIndex: number;
   onLogin: () => void;
-  onRegister: () => void;
 }) => {
   const t = useTranslations("auth.login");
 
@@ -31,14 +29,6 @@ export const HeroCTA = ({
         >
           <YoutubeIcon className="h-5 w-auto transition-transform duration-300 group-hover:scale-110" />
           {t("cta.button")}
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          onClick={onRegister}
-          className="h-14 px-6 text-base"
-        >
-          {t("form.goRegister")}
         </Button>
       </div>
     </div>

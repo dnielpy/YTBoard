@@ -7,10 +7,10 @@ import { SlideSection } from "../components/slide-section";
 import { WelcomeHero } from "../components/welcome-hero";
 import { FeatureGrid } from "../components/feature-grid";
 import { HeroCTA } from "../components/hero-cta";
-import { LoginForm } from "../components/login-form";
-import { RegisterForm } from "../components/register-form";
+import { LoginContainer } from "../../login/containers/login-container";
+import { RegisterContainer } from "../../create-account/containers/register-container";
 
-export const LoginContainer = () => {
+export const WelcomeContainer = () => {
   const t = useTranslations("auth.login");
   const { phaseIndex, featuresVisible, panel, setPanel, slideIndex } =
     useLoginAnimation();
@@ -66,7 +66,6 @@ export const LoginContainer = () => {
             <HeroCTA
               phaseIndex={phaseIndex}
               onLogin={() => setPanel("login")}
-              onRegister={() => setPanel("register")}
             />
 
             <div
@@ -82,21 +81,17 @@ export const LoginContainer = () => {
         </SlideSection>
 
         <SlideSection active={panel === "login"}>
-          <div className="w-full max-w-3xl flex justify-center align-center">
-            <LoginForm
-              onBack={() => setPanel("welcome")}
-              onGoRegister={() => setPanel("register")}
-            />
-          </div>
+          <LoginContainer
+            onBack={() => setPanel("welcome")}
+            onGoRegister={() => setPanel("register")}
+          />
         </SlideSection>
 
         <SlideSection active={panel === "register"}>
-          <div className="w-full max-w-3xl flex justify-center align-center">
-            <RegisterForm
-              onBack={() => setPanel("welcome")}
-              onGoLogin={() => setPanel("login")}
-            />
-          </div>
+          <RegisterContainer
+            onBack={() => setPanel("welcome")}
+            onGoLogin={() => setPanel("login")}
+          />
         </SlideSection>
       </div>
     </main>
