@@ -1,6 +1,6 @@
 {
     "home": {
-        "title": "Welcome to the Control Panel",
+        "title": "Welcome to the Dashboard",
         "subtitle": "Manage your application from here"
     },
     "sidebar": {
@@ -11,9 +11,80 @@
         "settings": "Settings"
     },
     "maintenance": {
-        "title": "We’re under maintenance",
-        "description": "We’re improving the platform to give you a faster and more stable experience. Thanks for your patience.",
+        "title": "We're under maintenance",
+        "description": "We're improving the platform to give you a faster and more stable experience. Thanks for your patience.",
         "home": "Back to home",
         "retry": "Retry now"
+    },
+    "youtube": {
+        "statistics": {
+            "header": {
+                "title": "YouTube statistics",
+                "pretitle": "YouTube",
+                "subtitle": "Quick snapshot of views, followers, and monetization."
+            }
+        },
+        "thumbnails": {
+            "header": {
+                "title": "Test thumbnails",
+                "pretitle": "YouTube",
+                "subtitle": "Upload a thumbnail and see how it looks on different devices."
+            }
+        },
+        "thumbnail": {
+            "upload": {
+                "title": "Upload thumbnail",
+                "description": "Select an image to preview it on devices.",
+                "thumbnailAlt": "Selected thumbnail",
+                "update": "Update",
+                "selectImage": "Select an image",
+                "recommendedSize": "Recommended: 1280x720 (16:9)"
+            },
+            "metadata": {
+                "title": "Video details",
+                "description": "Customize the sample data shown with your thumbnail.",
+                "fields": {
+                    "videoTitle": "Video title",
+                    "channelName": "Channel name",
+                    "views": "Views",
+                    "timeAgo": "Time ago",
+                    "duration": "Duration"
+                }
+            },
+            "preview": {
+                "title": "Preview",
+                "subtitle": "See how your thumbnail looks on each device.",
+                "tabs": {
+                    "desktop": "Desktop",
+                    "mobile": "Mobile",
+                    "tablet": "Tablet"
+                },
+                "brand": {
+                    "youtube": "YouTube"
+                },
+                "desktop": {
+                    "urlPlaceholder": "Search or paste URL"
+                },
+                "statusBar": {
+                    "time": "9:41"
+                },
+                "mobileNav": "Home Shorts Subscriptions Library",
+                "alt": {
+                    "desktop": "Desktop view",
+                    "mobile": "Mobile view",
+                    "tablet": "Tablet view"
+                }
+            },
+            "placeholder": {
+                "uploadPrompt": "Upload or drag an image"
+            },
+            "defaults": {
+                "title": "Your video title here",
+                "channel": "Channel name",
+                "views": "1.2K",
+                "timeAgo": "3 hours ago",
+                "duration": "12:34"
+            }
+        }
     }
 }
