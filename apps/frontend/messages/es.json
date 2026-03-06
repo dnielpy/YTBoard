@@ -23,6 +23,68 @@
                 "pretitle": "Youtube",
                 "subtitle": "Snapshot rápido de vistas, seguidores y monetización."
             }
+        },
+        "thumbnails": {
+            "header": {
+                "title": "Probar miniaturas",
+                "pretitle": "Youtube",
+                "subtitle": "Sube una miniatura y mira como se ve en diferentes dispositivos."
+            }
+        },
+        "thumbnail": {
+            "upload": {
+                "title": "Subir miniatura",
+                "description": "Selecciona una imagen para previsualizarla en dispositivos.",
+                "thumbnailAlt": "Miniatura seleccionada",
+                "update": "Actualizar",
+                "selectImage": "Selecciona una imagen",
+                "recommendedSize": "Recomendado: 1280x720 (16:9)"
+            },
+            "metadata": {
+                "title": "Detalles del video",
+                "description": "Personaliza los datos de muestra que se muestran con tu miniatura.",
+                "fields": {
+                    "videoTitle": "Título del video",
+                    "channelName": "Nombre del canal",
+                    "views": "Vistas",
+                    "timeAgo": "Hace (tiempo)",
+                    "duration": "Duración"
+                }
+            },
+            "preview": {
+                "title": "Previsualización",
+                "subtitle": "Mira cómo se ve tu miniatura en cada dispositivo.",
+                "tabs": {
+                    "desktop": "Escritorio",
+                    "mobile": "Móvil",
+                    "tablet": "Tableta"
+                },
+                "brand": {
+                    "youtube": "YouTube"
+                },
+                "desktop": {
+                    "urlPlaceholder": "Buscar o pegar URL"
+                },
+                "statusBar": {
+                    "time": "9:41"
+                },
+                "mobileNav": "Inicio Shorts Suscripciones Biblioteca",
+                "alt": {
+                    "desktop": "Vista escritorio",
+                    "mobile": "Vista móvil",
+                    "tablet": "Vista tableta"
+                }
+            },
+            "placeholder": {
+                "uploadPrompt": "Sube o arrastra una imagen"
+            },
+            "defaults": {
+                "title": "Tu título de video aquí",
+                "channel": "Nombre del canal",
+                "views": "1,2 K",
+                "timeAgo": "Hace 3 horas",
+                "duration": "12:34"
+            }
         }
     }
 }
