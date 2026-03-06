@@ -4,7 +4,7 @@ import type { Panel } from "../types/login.types";
 
 export const PANELS: Panel[] = ["welcome", "login", "register"];
 
-export const PHASES = ["logo", "tagline", "features", "cta"] as const;
+export const PHASES = ["logo", "tagline", "cta"] as const;
 
 export const FEATURES = [
   {

@@ -1,54 +1,133 @@
 "use client";
 
-import { LogIn, LogOut, User } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  ChevronsUpDown,
+  LogOut,
+  Youtube,
+  Instagram,
+  Unplug,
+} from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useSession, signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
+
+const AVAILABLE_SERVICES = [
+  { key: "youtube", name: "YouTube", icon: Youtube },
+  { key: "instagram", name: "Instagram", icon: Instagram },
+] as const;
+
+// TODO: replace with real connected-services data from the backend
+const connectedServiceKeys = ["youtube"];
 
 export const UserAuthBadge = () => {
-  // const { data: session, status } = useSession();      //Cgange this when Next-Auth is enabled
-  const session = {
-    user: {
-      name: "Daniel Quesada",
-      image: "/test",
-    },
-  };
-  const loading = false;
-  const userName = session?.user?.name ?? "No autenticado";
+  const { data: session, status } = useSession();
+  const { isMobile } = useSidebar();
+  const t = useTranslations("sidebar.user");
+
+  const loading = status === "loading";
+  const userName = session?.user?.email ?? "...";
+  const userEmail = session?.user?.email ?? "";
   const firstLetter = userName?.charAt(0)?.toUpperCase() ?? "?";
 
-  return (
-    <div className="flex items-center justify-between rounded-lg border px-4 py-3 text-xs">
-      <div className="flex items-center gap-3">
-        <Avatar className="h-9 w-9 border ">
-          <AvatarImage src={session?.user?.image ?? undefined} alt={userName} />
-          <AvatarFallback>
-            {loading ? <User className="h-4 w-4" /> : firstLetter}
-          </AvatarFallback>
-        </Avatar>
-        <div className="leading-tight">
-          <p className="font-semibold text-sm">
-            {loading ? "Cargando..." : userName}
-          </p>
-        </div>
-      </div>
+  const services = AVAILABLE_SERVICES.filter((s) =>
+    connectedServiceKeys.includes(s.key),
+  );
 
-      {session ? (
-        <button
-          // onClick={() => signOut({ callbackUrl: "/auth/login" })}
-          className="inline-flex items-center gap-1.5 border rounded-md px-3 py-2 text-xs font-medium  transition hover:bg-primary hover:text-white"
-        >
-          <LogOut className="h-3.5 w-3.5" />
-          Salir
-        </button>
-      ) : (
-        <button
-          // disabled={loading}
-          // onClick={() => signIn("google")}
-          className="inline-flex items-center gap-1.5 rounded-md bg-red-500 px-3 py-2 text-xs font-semibold  transition hover:bg-red-600 disabled:opacity-60"
-        >
-          <LogIn className="h-3.5 w-3.5" />
-          Iniciar con YouTube
-        </button>
-      )}
-    </div>
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <Avatar className="h-8 w-8 rounded-lg">
+                <AvatarFallback className="rounded-lg">
+                  {loading ? "..." : firstLetter}
+                </AvatarFallback>
+              </Avatar>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">
+                  {loading ? t("loading") : userName}
+                </span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {userEmail}
+                </span>
+              </div>
+              <ChevronsUpDown className="ml-auto size-4" />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+            side={isMobile ? "bottom" : "right"}
+            align="end"
+            sideOffset={4}
+          >
+            <DropdownMenuLabel className="p-0 font-normal">
+              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarFallback className="rounded-lg">
+                    {firstLetter}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">{userName}</span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {userEmail}
+                  </span>
+                </div>
+              </div>
+            </DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-xs text-muted-foreground">
+                {t("connectedServices")}
+              </DropdownMenuLabel>
+              {services.length > 0 ? (
+                services.map((service) => (
+                  <DropdownMenuItem key={service.key}>
+                    <service.icon />
+                    <span>{service.name}</span>
+                  </DropdownMenuItem>
+                ))
+              ) : (
+                <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-muted-foreground">
+                  <Unplug className="size-4" />
+                  <span>{t("noConnectedServices")}</span>
+                </div>
+              )}
+            </DropdownMenuGroup>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={() => signOut({ callbackUrl: "/auth/login" })}
+            >
+              <LogOut />
+              <span>{t("logout")}</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 };

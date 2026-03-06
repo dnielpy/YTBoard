@@ -22,15 +22,6 @@ export const RegisterForm = ({
     >
       <div className="flex flex-col gap-4">
         <RHFInput
-          name="name"
-          label={t("form.nameLabel")}
-          placeholder={t("form.namePlaceholder")}
-          required
-          disabled={false}
-          type="text"
-          description=""
-        />
-        <RHFInput
           name="email"
           label={t("form.emailLabel")}
           placeholder={t("form.emailPlaceholder")}

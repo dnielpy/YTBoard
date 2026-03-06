@@ -8,7 +8,13 @@
         "youtube": "YouTube",
         "statistics": "Statistics",
         "thumbnail": "Thumbnail",
-        "settings": "Settings"
+        "settings": "Settings",
+        "user": {
+            "loading": "Loading...",
+            "connectedServices": "Connected services",
+            "noConnectedServices": "No connected services",
+            "logout": "Log out"
+        }
     },
     "maintenance": {
         "title": "We're under maintenance",
@@ -23,6 +29,8 @@
         "passwordMinLength": "Password must be at least 8 characters",
         "confirmPasswordRequired": "Confirm password is required",
         "passwordsMustMatch": "Passwords must match",
+        "unknownError": "An unexpected error occurred",
+        "userAlreadyExists": "This email is already registered",
         "login": {
             "brand": {
                 "subtitle": "YouTube control center"

@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import { ThemeProvider } from "@/components/system/theme-provider";
+import { SessionProvider } from "next-auth/react";
 
 export function Providers({
   locale,
@@ -19,7 +20,7 @@ export function Providers({
   return (
     <ThemeProvider>
       <NextIntlClientProvider locale={locale}>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </NextIntlClientProvider>
     </ThemeProvider>
   );
