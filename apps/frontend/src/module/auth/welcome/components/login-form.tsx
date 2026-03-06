@@ -1,9 +1,7 @@
-import type { FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { RHFInput } from "@/components/ui/rhf/rhf-input";
 
 import { FormShell } from "./form-shell";
 
@@ -15,7 +13,6 @@ export const LoginForm = ({
   onGoRegister: () => void;
 }) => {
   const t = useTranslations("auth.login");
-  const handleSubmit = (e: FormEvent) => e.preventDefault();
 
   return (
     <FormShell
@@ -23,27 +20,25 @@ export const LoginForm = ({
       subtitle={t("form.loginSubtitle")}
       onBack={onBack}
     >
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="login-email">{t("form.emailLabel")}</Label>
-          <Input
-            id="login-email"
-            name="email"
-            type="email"
-            placeholder={t("form.emailPlaceholder")}
-            aria-label={t("form.emailLabel")}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="login-password">{t("form.passwordLabel")}</Label>
-          <Input
-            id="login-password"
-            name="password"
-            type="password"
-            placeholder={t("form.passwordPlaceholder")}
-            aria-label={t("form.passwordLabel")}
-          />
-        </div>
+      <div className="flex flex-col gap-4">
+        <RHFInput
+          name="email"
+          label={t("form.emailLabel")}
+          placeholder={t("form.emailPlaceholder")}
+          required
+          disabled={false}
+          type="email"
+          description=""
+        />
+        <RHFInput
+          name="password"
+          label={t("form.passwordLabel")}
+          placeholder={t("form.passwordPlaceholder")}
+          required
+          disabled={false}
+          type="password"
+          description=""
+        />
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
           <div className="flex items-center gap-2 text-foreground">
             <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] border border-input bg-secondary/60 text-[10px] font-semibold text-foreground/80">
@@ -73,7 +68,7 @@ export const LoginForm = ({
             {t("form.goRegister")}
           </button>
         </p>
-      </form>
+      </div>
     </FormShell>
   );
 };
