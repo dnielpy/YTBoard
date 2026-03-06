@@ -7,6 +7,7 @@ from fastapi import Depends
 from app.db.database import get_db
 from fastapi import HTTPException
 from starlette import status
+from app.core.security import verify_password
 
 async def create_user(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
     query = select(User).where(User.email == user_in.email)
@@ -34,3 +35,23 @@ async def create_user(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
     print("User Cretaed: ", new_user.email)
 
     return new_user
+
+
+async def login_user(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
+    query = select(User).where(User.email == user_in.email)
+    result = await db.execute(query)
+    existing_user = result.scalars().first()
+    
+    if not existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User not found"
+        )
+    
+    if not verify_password(user_in.password, existing_user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid password"
+        )
+    
+    return existing_user
