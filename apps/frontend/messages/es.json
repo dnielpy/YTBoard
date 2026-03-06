@@ -18,6 +18,9 @@
     },
     "auth": {
         "login": {
+            "brand": {
+                "subtitle": "Centro de control de YouTube"
+            },
             "tagline": {
                 "line1": "El centro de control definitivo para tu canal de YouTube.",
                 "line2": "Analiza. Gestiona. Crece."
@@ -49,8 +52,31 @@
                 }
             },
             "cta": {
-                "button": "Iniciar sesión con YouTube",
+                "button": "Iniciar sesión",
                 "helper": "Conecta tu cuenta de forma segura con OAuth 2.0"
+            },
+            "form": {
+                "loginTitle": "Bienvenido de nuevo",
+                "loginSubtitle": "Accede a tu centro de control de creador",
+                "registerTitle": "Crea tu cuenta",
+                "registerSubtitle": "Empieza a gestionar y hacer crecer tu canal",
+                "nameLabel": "Nombre completo",
+                "namePlaceholder": "Alex Creador",
+                "emailLabel": "Correo electrónico",
+                "emailPlaceholder": "tu@ejemplo.com",
+                "passwordLabel": "Contraseña",
+                "passwordPlaceholder": "••••••••",
+                "confirmPasswordLabel": "Confirmar contraseña",
+                "rememberMe": "Recordarme",
+                "terms": "Acepto los términos y la privacidad",
+                "submitLogin": "Continuar",
+                "submitRegister": "Crear cuenta",
+                "forgotPassword": "¿Olvidaste tu contraseña?",
+                "noAccount": "¿No tienes cuenta?",
+                "hasAccount": "¿Ya tienes cuenta?",
+                "goRegister": "Crear cuenta",
+                "goLogin": "Iniciar sesión",
+                "back": "Volver a la bienvenida"
             }
         }
     },
