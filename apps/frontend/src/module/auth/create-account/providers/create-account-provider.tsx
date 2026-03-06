@@ -4,22 +4,27 @@ import { FormProps, FormProvider } from "@/components/ui/form-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { loginSchema, LoginSchemaType } from "../schemas/login-schema";
+import { registerSchema, RegisterSchemaType } from "../schemas/register-schema";
 import { useTranslations } from "next-intl";
 
-export const LoginFormProvider: FC<FormProps> = ({ children, ...props }) => {
+export const CreateAccountProvider: FC<FormProps> = ({
+  children,
+  ...props
+}) => {
   const tAuth = useTranslations("auth");
 
-  const handleSubmit = async (data: LoginSchemaType) => {
-    console.log("Login Data: ", data);
+  const handleSubmit = async (data: RegisterSchemaType) => {
+    console.log("Register Data: ", data);
   };
 
-  const form = useForm<LoginSchemaType>({
+  const form = useForm<RegisterSchemaType>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
-    resolver: zodResolver(loginSchema(tAuth)),
+    resolver: zodResolver(registerSchema(tAuth)),
     mode: "onChange",
   });
 
