@@ -18,6 +18,9 @@
     },
     "auth": {
         "login": {
+            "brand": {
+                "subtitle": "YouTube control center"
+            },
             "tagline": {
                 "line1": "The ultimate control center for your YouTube channel.",
                 "line2": "Analyze. Manage. Grow."
@@ -49,8 +52,31 @@
                 }
             },
             "cta": {
-                "button": "Sign in with YouTube",
+                "button": "Sign in",
                 "helper": "Securely connect your account with OAuth 2.0"
+            },
+            "form": {
+                "loginTitle": "Welcome back",
+                "loginSubtitle": "Access your creator control center",
+                "registerTitle": "Create your account",
+                "registerSubtitle": "Start managing and growing your channel",
+                "nameLabel": "Full name",
+                "namePlaceholder": "Alex Creator",
+                "emailLabel": "Email",
+                "emailPlaceholder": "you@example.com",
+                "passwordLabel": "Password",
+                "passwordPlaceholder": "••••••••",
+                "confirmPasswordLabel": "Confirm password",
+                "rememberMe": "Remember me",
+                "terms": "I accept the terms and privacy",
+                "submitLogin": "Continue",
+                "submitRegister": "Create account",
+                "forgotPassword": "Forgot password?",
+                "noAccount": "Don't have an account?",
+                "hasAccount": "Already have an account?",
+                "goRegister": "Create account",
+                "goLogin": "Log in",
+                "back": "Back to welcome"
             }
         }
     },
