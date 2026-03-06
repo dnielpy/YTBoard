@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { BarChart3, Users, TrendingUp, Video, Eye, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -66,45 +67,40 @@ function FeatureCard({
 const FEATURES = [
   {
     icon: <BarChart3 className="h-5 w-5" />,
-    title: "Analytics Avanzados",
-    description:
-      "Visualiza el rendimiento de cada video con datos en tiempo real y tendencias clave.",
+    titleKey: "features.analytics.title",
+    descriptionKey: "features.analytics.description",
   },
   {
     icon: <Users className="h-5 w-5" />,
-    title: "Audiencia",
-    description:
-      "Conoce a tu audiencia, de donde vienen, que les gusta y cuando estan activos.",
+    titleKey: "features.audience.title",
+    descriptionKey: "features.audience.description",
   },
   {
     icon: <TrendingUp className="h-5 w-5" />,
-    title: "Crecimiento",
-    description:
-      "Rastrea tu crecimiento de suscriptores y vistas con proyecciones inteligentes.",
+    titleKey: "features.growth.title",
+    descriptionKey: "features.growth.description",
   },
   {
     icon: <Video className="h-5 w-5" />,
-    title: "Gestion de Videos",
-    description:
-      "Administra todos tus videos, thumbnails y metadatos desde un solo lugar.",
+    titleKey: "features.management.title",
+    descriptionKey: "features.management.description",
   },
   {
     icon: <Eye className="h-5 w-5" />,
-    title: "Monitoreo en Vivo",
-    description:
-      "Observa el rendimiento de tus videos en las primeras horas criticas de publicacion.",
+    titleKey: "features.live.title",
+    descriptionKey: "features.live.description",
   },
   {
     icon: <Zap className="h-5 w-5" />,
-    title: "Acciones Rapidas",
-    description:
-      "Automatiza tareas repetitivas y optimiza tu flujo de trabajo como creador.",
+    titleKey: "features.actions.title",
+    descriptionKey: "features.actions.description",
   },
 ];
 
 type Phase = "logo" | "tagline" | "features" | "cta";
 
 export default function LoginPage() {
+  const t = useTranslations("auth.login");
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/auth/welcome";
 
@@ -191,11 +187,9 @@ export default function LoginPage() {
           }}
         >
           <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-            El centro de control definitivo para tu canal de YouTube.
+            {t("tagline.line1")}
             <br />
-            <span className="text-foreground/80">
-              Analiza. Gestiona. Crece.
-            </span>
+            <span className="text-foreground/80">{t("tagline.line2")}</span>
           </p>
         </div>
 
@@ -209,10 +203,10 @@ export default function LoginPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((feature, i) => (
               <FeatureCard
-                key={feature.title}
+                key={feature.titleKey}
                 icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
+                title={t(feature.titleKey)}
+                description={t(feature.descriptionKey)}
                 delay={i * 120}
                 isVisible={featuresVisible}
               />
@@ -234,11 +228,9 @@ export default function LoginPage() {
             // onClick={() => signIn("google", { callbackUrl })}
           >
             <YoutubeIcon className="h-5 w-auto transition-transform duration-300 group-hover:scale-110" />
-            Iniciar sesion con YouTube
+            {t("cta.button")}
           </Button>
-          <p className="text-xs text-muted-foreground">
-            Conecta tu cuenta de forma segura con OAuth 2.0
-          </p>
+          <p className="text-xs text-muted-foreground">{t("cta.helper")}</p>
         </div>
 
         <div
