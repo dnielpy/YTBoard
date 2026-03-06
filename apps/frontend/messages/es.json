@@ -16,6 +16,44 @@
         "home": "Volver al inicio",
         "retry": "Reintentar ahora"
     },
+    "auth": {
+        "login": {
+            "tagline": {
+                "line1": "El centro de control definitivo para tu canal de YouTube.",
+                "line2": "Analiza. Gestiona. Crece."
+            },
+            "features": {
+                "analytics": {
+                    "title": "Analíticas avanzadas",
+                    "description": "Visualiza el rendimiento de cada video con datos en tiempo real y tendencias clave."
+                },
+                "audience": {
+                    "title": "Audiencia",
+                    "description": "Conoce a tu audiencia, de dónde vienen, qué les gusta y cuándo están activos."
+                },
+                "growth": {
+                    "title": "Crecimiento",
+                    "description": "Rastrea tu crecimiento de suscriptores y vistas con proyecciones inteligentes."
+                },
+                "management": {
+                    "title": "Gestión de videos",
+                    "description": "Administra todos tus videos, miniaturas y metadatos desde un solo lugar."
+                },
+                "live": {
+                    "title": "Monitoreo en vivo",
+                    "description": "Observa el rendimiento de tus videos en las primeras horas críticas de publicación."
+                },
+                "actions": {
+                    "title": "Acciones rápidas",
+                    "description": "Automatiza tareas repetitivas y optimiza tu flujo de trabajo como creador."
+                }
+            },
+            "cta": {
+                "button": "Iniciar sesión con YouTube",
+                "helper": "Conecta tu cuenta de forma segura con OAuth 2.0"
+            }
+        }
+    },
     "youtube": {
         "statistics": {
             "header": {
