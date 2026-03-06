@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 from sqlalchemy import String, Integer, DateTime, ForeignKey, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -14,7 +14,9 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(String, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
 
     accounts: Mapped[List["Account"]] = relationship(back_populates="user")
 
@@ -49,7 +51,9 @@ class AccountSnapshot(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     account_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"))
     
-    date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    date: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
     followers_count: Mapped[int] = mapped_column(Integer, default=0)
     views_count: Mapped[int] = mapped_column(BigInteger, default=0)
     video_count: Mapped[int] = mapped_column(Integer, default=0)
@@ -77,7 +81,9 @@ class ContentSnapshot(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     content_internal_id: Mapped[int] = mapped_column(ForeignKey("contents.id"))
     
-    date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    date: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
     views: Mapped[int] = mapped_column(BigInteger, default=0)
     likes: Mapped[int] = mapped_column(Integer, default=0)
     comments: Mapped[int] = mapped_column(Integer, default=0)
