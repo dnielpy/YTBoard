@@ -4,9 +4,6 @@ import z from "zod";
 export const registerSchema = (t: TFunction) =>
   z
     .object({
-      name: z.string().min(1, {
-        message: t("nameRequired"),
-      }),
       email: z.string().email({
         message: t("emailInvalid"),
       }),

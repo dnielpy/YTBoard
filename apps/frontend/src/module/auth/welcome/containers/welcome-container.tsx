@@ -5,15 +5,13 @@ import { useTranslations } from "next-intl";
 import { useLoginAnimation } from "../hooks/use-login-animation";
 import { SlideSection } from "../components/slide-section";
 import { WelcomeHero } from "../components/welcome-hero";
-import { FeatureGrid } from "../components/feature-grid";
 import { HeroCTA } from "../components/hero-cta";
 import { LoginContainer } from "../../login/containers/login-container";
 import { RegisterContainer } from "../../create-account/containers/register-container";
 
 export const WelcomeContainer = () => {
   const t = useTranslations("auth.login");
-  const { phaseIndex, featuresVisible, panel, setPanel, slideIndex } =
-    useLoginAnimation();
+  const { phaseIndex, panel, setPanel, slideIndex } = useLoginAnimation();
 
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-background">
@@ -46,37 +44,39 @@ export const WelcomeContainer = () => {
             <WelcomeHero phaseIndex={phaseIndex} />
 
             <div
-              className="mt-2 max-w-xl text-center"
+              className="grid w-full"
               style={{
-                opacity: phaseIndex >= 1 ? 1 : 0,
-                transform:
-                  phaseIndex >= 1 ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s",
+                gridTemplateRows: phaseIndex >= 1 ? "1fr" : "0fr",
+                transition:
+                  "grid-template-rows 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             >
-              <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {t("tagline.line1")}
-                <br />
-                <span className="text-foreground/80">{t("tagline.line2")}</span>
-              </p>
+              <div className="overflow-hidden">
+                <div
+                  className="mt-2 max-w-xl mx-auto text-center"
+                  style={{
+                    opacity: phaseIndex >= 1 ? 1 : 0,
+                    transform:
+                      phaseIndex >= 1 ? "translateY(0)" : "translateY(20px)",
+                    transition:
+                      "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s",
+                  }}
+                >
+                  <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+                    {t("tagline.line1")}
+                    <br />
+                    <span className="text-foreground/80">
+                      {t("tagline.line2")}
+                    </span>
+                  </p>
+                </div>
+
+                <HeroCTA
+                  phaseIndex={phaseIndex}
+                  onLogin={() => setPanel("login")}
+                />
+              </div>
             </div>
-
-            <FeatureGrid phaseIndex={phaseIndex} visible={featuresVisible} />
-
-            <HeroCTA
-              phaseIndex={phaseIndex}
-              onLogin={() => setPanel("login")}
-            />
-
-            <div
-              className="mt-20 h-px w-full max-w-xs"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent, oklch(0.63 0.25 29 / 0.3), transparent)",
-                opacity: phaseIndex >= 3 ? 1 : 0,
-                transition: "opacity 1s ease 0.5s",
-              }}
-            />
           </div>
         </SlideSection>
 

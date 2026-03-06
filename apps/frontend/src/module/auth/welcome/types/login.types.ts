@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type Phase = "logo" | "tagline" | "features" | "cta";
+export type Phase = "logo" | "tagline" | "cta";
 
 export type Panel = "welcome" | "login" | "register";
 

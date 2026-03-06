@@ -18,6 +18,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
+  SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -134,9 +135,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <div className="border-t p-4">
+      <SidebarFooter>
         <UserAuthBadge />
-      </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
