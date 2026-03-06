@@ -17,6 +17,12 @@
         "retry": "Reintentar ahora"
     },
     "auth": {
+        "emailInvalid": "Correo electrónico inválido",
+        "passwordRequired": "La contraseña es requerida",
+        "nameRequired": "El nombre es requerido",
+        "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+        "confirmPasswordRequired": "Confirmar contraseña es requerido",
+        "passwordsMustMatch": "Las contraseñas deben coincidir",
         "login": {
             "brand": {
                 "subtitle": "Centro de control de YouTube"

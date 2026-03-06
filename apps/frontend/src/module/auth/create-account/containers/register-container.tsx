@@ -1,6 +1,7 @@
 "use client";
 
 import { RegisterForm } from "../../welcome/components/register-form";
+import { CreateAccountProvider } from "../providers/create-account-provider";
 
 export const RegisterContainer = ({
   onBack,
@@ -11,7 +12,9 @@ export const RegisterContainer = ({
 }) => {
   return (
     <div className="w-full max-w-3xl flex justify-center align-center">
-      <RegisterForm onBack={onBack} onGoLogin={onGoLogin} />
+      <CreateAccountProvider>
+        <RegisterForm onBack={onBack} onGoLogin={onGoLogin} />
+      </CreateAccountProvider>
     </div>
   );
 };

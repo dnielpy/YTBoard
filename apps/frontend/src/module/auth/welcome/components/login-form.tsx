@@ -40,12 +40,7 @@ export const LoginForm = ({
           description=""
         />
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2 text-foreground">
-            <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] border border-input bg-secondary/60 text-[10px] font-semibold text-foreground/80">
-              ✓
-            </span>
-            {t("form.rememberMe")}
-          </div>
+          <div className="flex items-center gap-2 text-foreground"></div>
           <button type="button" className="text-primary hover:underline">
             {t("form.forgotPassword")}
           </button>
@@ -53,7 +48,7 @@ export const LoginForm = ({
         <Button
           type="submit"
           size="lg"
-          className="h-11 gap-2 bg-[#FF0000] text-[#FFFFFF] shadow-[0_0_30px_-5px_rgba(255,0,0,0.3)] transition-all duration-300 hover:bg-[#CC0000] hover:shadow-[0_0_40px_-5px_rgba(255,0,0,0.45)]"
+          className="h-11 gap-2 bg-[#FF0000] text-[#FFFFFF] shadow-[0_0_30px_-5px_rgba(255,0,0,0.3)] transition-all duration-300 hover:bg-[#FF0000] hover:shadow-[0_0_40px_-5px_rgba(255,0,0,0.45)]"
         >
           <Lock className="h-4 w-4" />
           {t("form.submitLogin")}
