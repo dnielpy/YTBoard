@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 export type Phase = "logo" | "tagline" | "cta";
 
-export type Panel = "welcome" | "login" | "register";
+export type Panel = "welcome" | "login" | "register" | "onboarding";
 
 export interface FeatureCardProps {
   icon: ReactNode;

@@ -7,16 +7,13 @@ import { useForm } from "react-hook-form";
 import { registerSchema, RegisterSchemaType } from "../schemas/register-schema";
 import { useTranslations } from "next-intl";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { register as registerUser } from "@/lib/api/auth";
 import { ApiError } from "@/lib/api/client";
 
-export const CreateAccountProvider: FC<FormProps> = ({
-  children,
-  ...props
-}) => {
+export const CreateAccountProvider: FC<
+  FormProps & { onSuccess?: () => void }
+> = ({ children, onSuccess, ...props }) => {
   const tAuth = useTranslations("auth");
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<RegisterSchemaType>({
@@ -49,7 +46,7 @@ export const CreateAccountProvider: FC<FormProps> = ({
           message: tAuth("unknownError"),
         });
       } else {
-        router.push("/");
+        onSuccess?.();
       }
     } catch (error) {
       if (error instanceof ApiError) {

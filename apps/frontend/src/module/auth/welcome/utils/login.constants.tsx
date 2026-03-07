@@ -2,7 +2,7 @@ import { BarChart3, Users, TrendingUp, Video, Eye, Zap } from "lucide-react";
 
 import type { Panel } from "../types/login.types";
 
-export const PANELS: Panel[] = ["welcome", "login", "register"];
+export const PANELS: Panel[] = ["welcome", "login", "register", "onboarding"];
 
 export const PHASES = ["logo", "tagline", "cta"] as const;
 

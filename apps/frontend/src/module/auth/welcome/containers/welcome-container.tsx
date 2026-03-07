@@ -8,6 +8,7 @@ import { WelcomeHero } from "../components/welcome-hero";
 import { HeroCTA } from "../components/hero-cta";
 import { LoginContainer } from "../../login/containers/login-container";
 import { RegisterContainer } from "../../create-account/containers/register-container";
+import { OnboardingPanel } from "../components/onboarding-panel";
 
 export const WelcomeContainer = () => {
   const t = useTranslations("auth.login");
@@ -34,7 +35,7 @@ export const WelcomeContainer = () => {
       <div
         className="relative z-10 flex w-full flex-col"
         style={{
-          height: "300dvh",
+          height: "400dvh",
           transform: `translateY(-${slideIndex * 100}dvh)`,
           transition: "transform 0.9s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
@@ -91,7 +92,12 @@ export const WelcomeContainer = () => {
           <RegisterContainer
             onBack={() => setPanel("welcome")}
             onGoLogin={() => setPanel("login")}
+            onSuccess={() => setPanel("onboarding")}
           />
+        </SlideSection>
+
+        <SlideSection active={panel === "onboarding"}>
+          <OnboardingPanel />
         </SlideSection>
       </div>
     </main>
