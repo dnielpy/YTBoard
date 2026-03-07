@@ -69,6 +69,14 @@
                 "button": "Iniciar sesión",
                 "helper": "Conecta tu cuenta de forma segura con OAuth 2.0"
             },
+            "onboarding": {
+                "ready": "Cuenta creada",
+                "title": "¡Todo listo!",
+                "subtitle": "Solo una cosa más, conecta tu canal para empezar a usar la app.",
+                "youtube": "YouTube",
+                "youtubeHint": "Conecta tu canal y accede a tus analíticas",
+                "connect": "Conectar cuenta"
+            },
             "form": {
                 "loginTitle": "Bienvenido de nuevo",
                 "loginSubtitle": "Accede a tu centro de control de creador",
