@@ -34,6 +34,7 @@ class Account(Base):
     
     platform_account_id: Mapped[str] = mapped_column(String, index=True)
     handle: Mapped[str] = mapped_column(String)
+    avatar_url: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     access_token: Mapped[str] = mapped_column(String)
     refresh_token: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     token_expires_at: Mapped[Optional[datetime]] = mapped_column(

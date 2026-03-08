@@ -21,6 +21,7 @@ export type ConnectedAccount = {
   account_id: number;
   channel_id: string;
   channel_handle: string;
+  avatar_url: string | null;
   platform_name: string;
 };
 
