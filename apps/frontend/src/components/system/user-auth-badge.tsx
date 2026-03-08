@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   ChevronsUpDown,
   LogOut,
   Youtube,
   Instagram,
   Unplug,
+  Loader2,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useSession, signOut } from "next-auth/react";
@@ -25,28 +27,55 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  getConnectedAccount,
+  getGoogleAuthUrl,
+  type ConnectedAccount,
+} from "@/lib/api/accounts";
 
 const AVAILABLE_SERVICES = [
   { key: "youtube", name: "YouTube", icon: Youtube },
   { key: "instagram", name: "Instagram", icon: Instagram },
 ] as const;
 
-// TODO: replace with real connected-services data from the backend
-const connectedServiceKeys = ["youtube"];
-
 export const UserAuthBadge = () => {
   const { data: session, status } = useSession();
   const { isMobile } = useSidebar();
   const t = useTranslations("sidebar.user");
+
+  const [connectedAccount, setConnectedAccount] =
+    useState<ConnectedAccount | null>(null);
+  const [connectLoading, setConnectLoading] = useState(false);
 
   const loading = status === "loading";
   const userName = session?.user?.email ?? "...";
   const userEmail = session?.user?.email ?? "";
   const firstLetter = userName?.charAt(0)?.toUpperCase() ?? "?";
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      getConnectedAccount()
+        .then(setConnectedAccount)
+        .catch(() => setConnectedAccount(null));
+    }
+  }, [status]);
+
+  const connectedServiceKeys = connectedAccount ? ["youtube"] : [];
+
   const services = AVAILABLE_SERVICES.filter((s) =>
     connectedServiceKeys.includes(s.key),
   );
+
+  const handleConnectYouTube = async () => {
+    try {
+      setConnectLoading(true);
+      const callbackPath = `${window.location.origin}/${document.documentElement.lang || "en"}/auth/google/callback`;
+      const { auth_url } = await getGoogleAuthUrl(callbackPath);
+      window.location.href = auth_url;
+    } catch {
+      setConnectLoading(false);
+    }
+  };
 
   return (
     <SidebarMenu>
@@ -106,14 +135,26 @@ export const UserAuthBadge = () => {
                 services.map((service) => (
                   <DropdownMenuItem key={service.key}>
                     <service.icon />
-                    <span>{service.name}</span>
+                    <span>
+                      {service.name}
+                      {connectedAccount
+                        ? ` (${connectedAccount.channel_handle})`
+                        : ""}
+                    </span>
                   </DropdownMenuItem>
                 ))
               ) : (
-                <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-muted-foreground">
-                  <Unplug className="size-4" />
-                  <span>{t("noConnectedServices")}</span>
-                </div>
+                <DropdownMenuItem
+                  onClick={handleConnectYouTube}
+                  disabled={connectLoading}
+                >
+                  {connectLoading ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Youtube className="size-4" />
+                  )}
+                  <span>{t("connectYouTube")}</span>
+                </DropdownMenuItem>
               )}
             </DropdownMenuGroup>
 

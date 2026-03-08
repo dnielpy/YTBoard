@@ -13,6 +13,7 @@
             "loading": "Loading...",
             "connectedServices": "Connected services",
             "noConnectedServices": "No connected services",
+            "connectYouTube": "Connect YouTube",
             "logout": "Log out"
         }
     },
@@ -31,6 +32,14 @@
         "passwordsMustMatch": "Passwords must match",
         "unknownError": "An unexpected error occurred",
         "userAlreadyExists": "This email is already registered",
+        "googleCallback": {
+            "processing": "Connecting your YouTube channel...",
+            "processingHint": "Please wait while we set up your account.",
+            "success": "Successfully connected!",
+            "successHint": "Redirecting you to the dashboard...",
+            "error": "Connection failed",
+            "retry": "Back to login"
+        },
         "login": {
             "brand": {
                 "subtitle": "YouTube control center"
