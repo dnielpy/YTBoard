@@ -1,7 +1,7 @@
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/app/i18n/navigation";
 import { useTransition } from "react";
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuTrigger,

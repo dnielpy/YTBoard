@@ -3,9 +3,6 @@ from typing import List, Optional
 from sqlalchemy import String, Integer, DateTime, ForeignKey, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-# AJUSTE IMPORTANTE:
-# Estamos asumiendo que tu archivo de conexión está en ../db/database.py
-# Si te da error de import, ajusta esta línea.
 from ..db.database import Base 
 
 class User(Base):

@@ -1,4 +1,4 @@
-import { TFunction } from "@/lib/types/intl";
+import { TFunction } from "../../../../lib/types/intl";
 import z from "zod";
 
 export const loginSchema = (t: TFunction) =>

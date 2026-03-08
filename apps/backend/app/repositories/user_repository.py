@@ -2,7 +2,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.models import User
-from app.schemas.schemas import UserCreate
 
 class UserRepository:
     def __init__(self, db: AsyncSession):
@@ -20,14 +19,14 @@ class UserRepository:
         result = await self.db.execute(query)
         return result.scalars().first()
 
-    async def create(self, user_data: UserCreate) -> User:
+    async def create(self, email: str, password_hash: str) -> User:
         db_user = User(
-            email=user_data.email, 
-            password_hash=user_data.password
+            email=email,
+            password_hash=password_hash,
         )
-        
+
         self.db.add(db_user)
-        await self.db.commit()      
-        await self.db.refresh(db_user) 
-        
+        await self.db.commit()
+        await self.db.refresh(db_user)
+
         return db_user
