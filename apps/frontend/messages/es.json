@@ -13,6 +13,7 @@
             "loading": "Cargando...",
             "connectedServices": "Servicios conectados",
             "noConnectedServices": "Ningún servicio conectado",
+            "connectYouTube": "Conectar YouTube",
             "logout": "Cerrar sesión"
         }
     },
@@ -31,6 +32,14 @@
         "passwordsMustMatch": "Las contraseñas deben coincidir",
         "unknownError": "Ocurrió un error inesperado",
         "userAlreadyExists": "Este correo ya está registrado",
+        "googleCallback": {
+            "processing": "Conectando tu canal de YouTube...",
+            "processingHint": "Por favor espera mientras configuramos tu cuenta.",
+            "success": "¡Conexión exitosa!",
+            "successHint": "Redirigiéndote al panel de control...",
+            "error": "Error de conexión",
+            "retry": "Volver al inicio de sesión"
+        },
         "login": {
             "brand": {
                 "subtitle": "Centro de control de YouTube"

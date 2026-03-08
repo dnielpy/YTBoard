@@ -36,6 +36,9 @@ class Account(Base):
     handle: Mapped[str] = mapped_column(String)
     access_token: Mapped[str] = mapped_column(String)
     refresh_token: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    token_expires_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
     user: Mapped["User"] = relationship(back_populates="accounts")
     platform: Mapped["Platform"] = relationship(back_populates="accounts")
