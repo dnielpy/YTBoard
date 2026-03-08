@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/system/theme-provider";
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 import { Button } from "../ui/button";
 
 export function ThemeToggle() {
