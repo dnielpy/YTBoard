@@ -79,6 +79,7 @@
         }
       ],
       "scopes": [
+        "frontend",
         "web",
         "docs",
         "backend",
