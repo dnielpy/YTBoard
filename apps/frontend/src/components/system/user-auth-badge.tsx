@@ -9,7 +9,7 @@ import {
   Unplug,
   Loader2,
 } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession, signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import {
@@ -134,7 +134,19 @@ export const UserAuthBadge = () => {
               {services.length > 0 ? (
                 services.map((service) => (
                   <DropdownMenuItem key={service.key}>
-                    <service.icon />
+                    {connectedAccount?.avatar_url ? (
+                      <Avatar className="h-4 w-4 rounded-sm">
+                        <AvatarImage
+                          src={connectedAccount.avatar_url}
+                          alt={connectedAccount.channel_handle}
+                        />
+                        <AvatarFallback className="rounded-sm text-[8px]">
+                          <service.icon className="size-3" />
+                        </AvatarFallback>
+                      </Avatar>
+                    ) : (
+                      <service.icon />
+                    )}
                     <span>
                       {service.name}
                       {connectedAccount

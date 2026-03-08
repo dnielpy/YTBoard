@@ -1,5 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
+from typing import Optional
 
 class AccountBase(BaseModel):
     platform_account_id: str
@@ -13,5 +14,6 @@ class AccountResponse(AccountBase):
     id: int
     user_id: int
     platform_id: int
-    
+    avatar_url: Optional[str] = None
+
     model_config = ConfigDict(from_attributes=True)

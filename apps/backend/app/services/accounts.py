@@ -17,7 +17,6 @@ YOUTUBE_PLATFORM_NAME = "YouTube"
 async def connect_google_account(
     user_id: int, code: str, redirect_uri: str, db: AsyncSession
 ) -> dict:
-    """Full flow: exchange code → fetch channel → store account."""
     platform_repo = PlatformRepository(db)
     account_repo = AccountRepository(db)
 
@@ -39,6 +38,7 @@ async def connect_google_account(
         platform_id=platform.id,
         platform_account_id=channel_info["channel_id"],
         handle=channel_info["handle"],
+        avatar_url=channel_info.get("thumbnail_url"),
         access_token=token_data["access_token"],
         refresh_token=token_data.get("refresh_token"),
         token_expires_at=token_data["expires_at"],
@@ -82,7 +82,6 @@ async def disconnect_google_account(user_id: int, db: AsyncSession) -> bool:
 
 
 async def get_connected_account(user_id: int, db: AsyncSession) -> dict | None:
-    """Return the user's connected YouTube account info, or None."""
     platform_repo = PlatformRepository(db)
     account_repo = AccountRepository(db)
 
@@ -98,12 +97,12 @@ async def get_connected_account(user_id: int, db: AsyncSession) -> dict | None:
         "account_id": account.id,
         "channel_id": account.platform_account_id,
         "channel_handle": account.handle,
+        "avatar_url": account.avatar_url,
         "platform_name": YOUTUBE_PLATFORM_NAME,
     }
 
 
 async def get_valid_access_token(user_id: int, db: AsyncSession) -> str:
-    """Return a valid Google access token, refreshing if expired."""
     platform_repo = PlatformRepository(db)
     account_repo = AccountRepository(db)
 

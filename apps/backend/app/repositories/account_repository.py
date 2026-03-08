@@ -42,12 +42,14 @@ class AccountRepository:
         access_token: str,
         refresh_token: Optional[str],
         token_expires_at: Optional[datetime] = None,
+        avatar_url: Optional[str] = None,
     ) -> Account:
         db_account = Account(
             user_id=user_id,
             platform_id=platform_id,
             platform_account_id=platform_account_id,
             handle=handle,
+            avatar_url=avatar_url,
             access_token=access_token,
             refresh_token=refresh_token,
             token_expires_at=token_expires_at,
