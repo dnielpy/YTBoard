@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+services:
+  database: 
+   image: postgres:17
+   env_file:
+    - .env
+   ports:
+    - 5432:5432
+   volumes:
+    - postgres_data:/var/lib/postgresql/data
+   networks:
+    - ytboard-network
+   healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+
+networks:
+  ytboard-network:
+    name: ytboard-network
+
+volumes:
+  postgres_data:
