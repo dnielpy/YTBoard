@@ -119,6 +119,7 @@ async def get_channel_info(access_token: str) -> dict:
         "title": snippet.get("title", ""),
         "handle": snippet.get("customUrl", snippet.get("title", "")),
         "thumbnail_url": snippet.get("thumbnails", {}).get("default", {}).get("url"),
+        "published_at": snippet.get("publishedAt"),
         "subscriber_count": int(statistics.get("subscriberCount", 0)),
         "view_count": int(statistics.get("viewCount", 0)),
         "video_count": int(statistics.get("videoCount", 0)),

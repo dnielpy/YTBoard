@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.core.config import settings
 from app.db.database import get_db
-from app.models.models import User
+from app.models.models import PeriodType, User
 from app.schemas.google_oauth import (
     GoogleAuthUrlResponse,
     GoogleConnectRequest,
@@ -15,8 +15,12 @@ from app.schemas.google_oauth import (
 from app.services.accounts import (
     connect_google_account,
     disconnect_google_account,
+    get_account_statistics as fetch_account_statistics,
     get_connected_account,
+    sync_all_data,
+    sync_user_account_statistics,
 )
+from app.schemas.account_statistics import AccountStatisticsResponse
 from app.services.google_oauth import build_auth_url
 
 router = APIRouter()
@@ -72,3 +76,19 @@ async def disconnect_google(
     """Disconnect the user's YouTube account."""
     await disconnect_google_account(current_user.id, db)
     return {"detail": "YouTube account disconnected successfully"}
+
+@router.get("/sync")
+async def sync_account(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> Any:
+    await sync_all_data(current_user.id, db)
+    return {"detail": "YouTube account synced successfully"}
+
+@router.get("/statistics", response_model=AccountStatisticsResponse)
+async def get_account_statistics_endpoint(
+    period_type: PeriodType,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> Any:
+    return await fetch_account_statistics(current_user.id, period_type, db)

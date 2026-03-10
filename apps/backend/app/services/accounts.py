@@ -3,13 +3,17 @@ from datetime import datetime, timezone
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.models.models import PeriodType
 from app.repositories.account_repository import AccountRepository
+from app.repositories.account_statistics_repository import AccountStatisticsRepository
+from app.schemas.account_statistics import AccountStatisticsResponse
 from app.services.google_oauth import (
     exchange_code_for_tokens,
     get_channel_info,
     refresh_access_token,
     revoke_token,
 )
+from app.services.youtube_api.user_info import fetch_account_statistics
 
 
 async def connect_google_account(
@@ -114,3 +118,63 @@ async def get_valid_access_token(user_id: int, db: AsyncSession) -> str:
         return new_tokens["access_token"]
 
     return account.access_token
+
+
+async def sync_user_account_statistics(user_id: int, db: AsyncSession) -> None:
+    account_repo = AccountRepository(db)
+    stats_repo = AccountStatisticsRepository(db)
+
+    account = await account_repo.get_by_user(user_id)
+    if not account:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No YouTube account connected",
+        )
+
+    access_token = await get_valid_access_token(user_id, db)
+
+    result = await fetch_account_statistics(
+        access_token=access_token,
+        channel_published_at=account.channel_published_at,
+    )
+
+    if not account.channel_published_at and result["published_at"]:
+        account.channel_published_at = result["published_at"]
+        await db.commit()
+
+    for period_type, metrics in result["periods"].items():
+        await stats_repo.upsert(
+            account_id=account.id,
+            period_type=period_type,
+            followers=result["subscriber_count"],
+            **metrics,
+        )
+
+    await account_repo.update_last_sync(account.id)
+
+async def sync_all_data(user_id: int, db:AsyncSession) -> None:
+    await sync_user_account_statistics(user_id, db)
+    # Add other sync functions here as needed
+    
+async def get_account_statistics(
+    user_id: int, period_type: PeriodType, db: AsyncSession
+) -> AccountStatisticsResponse:
+    account_repo = AccountRepository(db)
+    stats_repo = AccountStatisticsRepository(db)
+
+    account = await account_repo.get_by_user(user_id)
+    if not account:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No YouTube account connected",
+        )
+
+    stats = await stats_repo.get_by_account_and_period(account.id, period_type)
+
+    if not stats:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No statistics found for period {period_type}",
+        )
+
+    return AccountStatisticsResponse.model_validate(stats)

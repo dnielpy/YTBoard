@@ -35,4 +35,3 @@ async def get_user_by_email(email: str, db: AsyncSession = Depends(get_db)):
 
     return user
 
-    
