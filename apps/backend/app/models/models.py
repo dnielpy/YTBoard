@@ -1,9 +1,18 @@
+import enum
 from datetime import datetime, timezone
 from typing import List, Optional
-from sqlalchemy import String, Integer, DateTime, ForeignKey, BigInteger
+
+from sqlalchemy import String, Integer, DateTime, ForeignKey, BigInteger, Numeric, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..db.database import Base 
+from ..db.database import Base
+
+
+class PeriodType(enum.Enum):
+    SEVEN_DAYS = "7_days"
+    ONE_MONTH = "1_month"
+    ALL_TIME = "all_time"
+
 
 class User(Base):
     __tablename__ = "users"
@@ -17,76 +26,82 @@ class User(Base):
 
     accounts: Mapped[List["Account"]] = relationship(back_populates="user")
 
-class Platform(Base):
-    __tablename__ = "platforms"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    
-    accounts: Mapped[List["Account"]] = relationship(back_populates="platform")
 
 class Account(Base):
     __tablename__ = "accounts"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    platform_id: Mapped[int] = mapped_column(ForeignKey("platforms.id"))
-    
+
     platform_account_id: Mapped[str] = mapped_column(String, index=True)
-    handle: Mapped[str] = mapped_column(String)
-    avatar_url: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    handle: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    title: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    description: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    image_url: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     access_token: Mapped[str] = mapped_column(String)
     refresh_token: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     token_expires_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    last_sync: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
     user: Mapped["User"] = relationship(back_populates="accounts")
-    platform: Mapped["Platform"] = relationship(back_populates="accounts")
-    snapshots: Mapped[List["AccountSnapshot"]] = relationship(back_populates="account")
-    contents: Mapped[List["Content"]] = relationship(back_populates="account")
+    statistics: Mapped[List["AccountStatistics"]] = relationship(back_populates="account")
+    videos: Mapped[List["Video"]] = relationship(back_populates="account")
 
-class AccountSnapshot(Base):
-    __tablename__ = "account_snapshots"
+
+class AccountStatistics(Base):
+    __tablename__ = "account_statistics"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     account_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"))
-    
-    date: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+
+    period_type: Mapped[PeriodType] = mapped_column(
+        SAEnum(PeriodType, name="periodtype"), nullable=False
     )
-    followers_count: Mapped[int] = mapped_column(Integer, default=0)
-    views_count: Mapped[int] = mapped_column(BigInteger, default=0)
-    video_count: Mapped[int] = mapped_column(Integer, default=0)
 
-    account: Mapped["Account"] = relationship(back_populates="snapshots")
+    followers: Mapped[int] = mapped_column(BigInteger, default=0)
+    total_views: Mapped[int] = mapped_column(BigInteger, default=0)
+    total_revenue: Mapped[Optional[float]] = mapped_column(Numeric(12, 2), nullable=True)
+    total_min_watched: Mapped[int] = mapped_column(BigInteger, default=0)
+    total_likes: Mapped[int] = mapped_column(BigInteger, default=0)
 
-class Content(Base):
-    __tablename__ = "contents"
+    account: Mapped["Account"] = relationship(back_populates="statistics")
+
+
+class Video(Base):
+    __tablename__ = "videos"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     account_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"))
-    
-    content_id: Mapped[str] = mapped_column(String, index=True)
+
+    video_id: Mapped[str] = mapped_column(String, index=True)
     title: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    type: Mapped[str] = mapped_column(String)
-    published_at: Mapped[datetime] = mapped_column(DateTime)
+    description: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     thumbnail_url: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    duration: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    privacy: Mapped[Optional[str]] = mapped_column(String, nullable=True)
 
-    account: Mapped["Account"] = relationship(back_populates="contents")
-    snapshots: Mapped[List["ContentSnapshot"]] = relationship(back_populates="content")
+    account: Mapped["Account"] = relationship(back_populates="videos")
+    statistics: Mapped[List["VideoStatistics"]] = relationship(back_populates="video")
 
-class ContentSnapshot(Base):
-    __tablename__ = "content_snapshots"
+
+class VideoStatistics(Base):
+    __tablename__ = "video_statistics"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    content_internal_id: Mapped[int] = mapped_column(ForeignKey("contents.id"))
-    
-    date: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
-    )
-    views: Mapped[int] = mapped_column(BigInteger, default=0)
-    likes: Mapped[int] = mapped_column(Integer, default=0)
-    comments: Mapped[int] = mapped_column(Integer, default=0)
+    video_id: Mapped[int] = mapped_column(ForeignKey("videos.id"))
 
-    content: Mapped["Content"] = relationship(back_populates="snapshots")
+    period_type: Mapped[PeriodType] = mapped_column(
+        SAEnum(PeriodType, name="periodtype"), nullable=False
+    )
+
+    total_views: Mapped[int] = mapped_column(BigInteger, default=0)
+    followers_gained: Mapped[int] = mapped_column(Integer, default=0)
+    likes: Mapped[int] = mapped_column(Integer, default=0)
+    estimated_revenue: Mapped[Optional[float]] = mapped_column(Numeric(12, 2), nullable=True)
+
+    video: Mapped["Video"] = relationship(back_populates="statistics")

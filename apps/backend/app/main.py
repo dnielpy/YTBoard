@@ -5,16 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
 from app.core.config import settings
-from app.db.database import SessionLocal
-from app.repositories.account_repository import PlatformRepository
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Seed required platform records on startup."""
-    async with SessionLocal() as db:
-        platform_repo = PlatformRepository(db)
-        await platform_repo.get_or_create("YouTube")
     yield
 
 
