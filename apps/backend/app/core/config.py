@@ -23,6 +23,7 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost/ytboard_db"
+    DATABASE_ECHO: bool = False
 
     class Config:
         case_sensitive = True

@@ -27,7 +27,6 @@ from app.services.google_oauth import build_auth_url
 
 router = APIRouter()
 
-
 @router.get("/google/auth-url", response_model=GoogleAuthUrlResponse)
 async def get_google_auth_url(
     redirect_uri: str | None = None,

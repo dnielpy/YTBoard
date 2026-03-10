@@ -3,3 +3,8 @@ node_modules
 __pycache__/
 *.py[cod]
 *.pyo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
