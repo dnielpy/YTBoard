@@ -25,6 +25,18 @@ export type ConnectedAccount = {
   platform_name: string;
 };
 
+export type VideoResponse = {
+  id: number;
+  account_id: number;
+  video_id: string;
+  title: string | null;
+  description: string | null;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  duration: string | null;
+  privacy: string | null;
+};
+
 export async function getGoogleAuthUrl(
   redirectUri?: string,
 ): Promise<GoogleAuthUrlResponse> {
@@ -53,4 +65,12 @@ export async function disconnectGoogleAccount(): Promise<{ detail: string }> {
   return apiClient<{ detail: string }>("/api/v1/accounts/google/disconnect", {
     method: "DELETE",
   });
+}
+
+export async function syncAccount(): Promise<{ detail: string }> {
+  return apiClient<{ detail: string }>("/api/v1/accounts/sync");
+}
+
+export async function getVideos(): Promise<VideoResponse[]> {
+  return apiClient<VideoResponse[]>("/api/v1/accounts/videos");
 }

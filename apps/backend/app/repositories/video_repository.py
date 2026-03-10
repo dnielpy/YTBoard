@@ -33,6 +33,18 @@ class VideoRepository:
         await self.db.refresh(db_video)
         return db_video
 
+    async def upsert(self, account_id: int, video_id: str, **kwargs) -> Video:
+        video = await self.get_by_youtube_id(video_id)
+        if video:
+            for key, value in kwargs.items():
+                setattr(video, key, value)
+        else:
+            video = Video(account_id=account_id, video_id=video_id, **kwargs)
+            self.db.add(video)
+        await self.db.commit()
+        await self.db.refresh(video)
+        return video
+
     async def delete(self, video_id: int) -> bool:
         video = await self.get_by_id(video_id)
         if not video:

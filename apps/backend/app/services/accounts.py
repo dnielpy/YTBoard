@@ -6,7 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.models import PeriodType
 from app.repositories.account_repository import AccountRepository
 from app.repositories.account_statistics_repository import AccountStatisticsRepository
+from app.repositories.video_repository import VideoRepository
 from app.schemas.account_statistics import AccountStatisticsResponse
+from app.schemas.video import VideoResponse
 from app.services.google_oauth import (
     exchange_code_for_tokens,
     get_channel_info,
@@ -14,7 +16,8 @@ from app.services.google_oauth import (
     revoke_token,
 )
 from app.services.youtube_api.user_info import fetch_account_statistics
-
+from app.services.youtube_api.videos import fetch_videos
+from app.services.videos import sync_videos
 
 async def connect_google_account(
     user_id: int, code: str, redirect_uri: str, db: AsyncSession
@@ -152,9 +155,11 @@ async def sync_user_account_statistics(user_id: int, db: AsyncSession) -> None:
 
     await account_repo.update_last_sync(account.id)
 
-async def sync_all_data(user_id: int, db:AsyncSession) -> None:
-    await sync_user_account_statistics(user_id, db)
-    # Add other sync functions here as needed
+async def sync_all_data(user_id: int, db: AsyncSession) -> None:
+        access_token = await get_valid_access_token(user_id, db)
+        
+        await sync_user_account_statistics(user_id, db)
+        await sync_videos(user_id, db, access_token)
     
 async def get_account_statistics(
     user_id: int, period_type: PeriodType, db: AsyncSession
