@@ -5,10 +5,10 @@ import httpx
 from fastapi import HTTPException, status
 
 from app.core.config import settings
+from app.services.youtube_api.client import YouTubeDataClient
 
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_REVOKE_URL = "https://oauth2.googleapis.com/revoke"
-YOUTUBE_CHANNELS_URL = "https://www.googleapis.com/youtube/v3/channels"
 
 
 async def build_auth_url(redirect_uri: str) -> str:
@@ -89,28 +89,8 @@ async def refresh_access_token(refresh_token: str) -> dict:
 async def get_channel_info(access_token: str) -> dict:
     """Fetch the authenticated user's YouTube channel info."""
     async with httpx.AsyncClient() as client:
-        response = await client.get(
-            YOUTUBE_CHANNELS_URL,
-            params={"part": "snippet,statistics", "mine": "true"},
-            headers={"Authorization": f"Bearer {access_token}"},
-        )
+        channel = await YouTubeDataClient(client, access_token).get_channel()
 
-    if response.status_code != 200:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Failed to fetch YouTube channel info",
-        )
-
-    data = response.json()
-    items = data.get("items", [])
-
-    if not items:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No YouTube channel found for this account",
-        )
-
-    channel = items[0]
     snippet = channel.get("snippet", {})
     statistics = channel.get("statistics", {})
 
