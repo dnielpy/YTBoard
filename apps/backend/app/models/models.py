@@ -43,6 +43,9 @@ class Account(Base):
     token_expires_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    channel_published_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     last_sync: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )

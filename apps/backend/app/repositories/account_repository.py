@@ -1,5 +1,5 @@
 # app/repositories/account_repository.py
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 from sqlalchemy import select
@@ -82,7 +82,7 @@ class AccountRepository:
         if not account:
             return None
 
-        account.last_sync = datetime.now()
+        account.last_sync = datetime.now(timezone.utc)
         await self.db.commit()
         await self.db.refresh(account)
         return account
