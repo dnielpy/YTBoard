@@ -20,7 +20,9 @@ from app.services.accounts import (
     sync_all_data,
     sync_user_account_statistics,
 )
+from app.services.videos import get_videos
 from app.schemas.account_statistics import AccountStatisticsResponse
+from app.schemas.video import VideoResponse
 from app.services.google_oauth import build_auth_url
 
 router = APIRouter()
@@ -92,3 +94,10 @@ async def get_account_statistics_endpoint(
     db: AsyncSession = Depends(get_db),
 ) -> Any:
     return await fetch_account_statistics(current_user.id, period_type, db)
+
+@router.get("/videos", response_model=list[VideoResponse])
+async def get_videos_endpoint(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> Any:
+    return await get_videos(current_user.id, db)

@@ -6,6 +6,8 @@ from fastapi import HTTPException, status
 from app.services.youtube_api.constants import (
     YOUTUBE_ANALYTICS_URL,
     YOUTUBE_CHANNELS_URL,
+    YOUTUBE_SEARCH_URL,
+    YOUTUBE_VIDEOS_URL,
 )
 
 class YouTubeDataClient:
@@ -35,6 +37,30 @@ class YouTubeDataClient:
             )
         return items[0]
 
+    async def search_my_videos(self, max_results: int = 50) -> list[str]:
+        data = await self._get(
+            YOUTUBE_SEARCH_URL,
+            params={
+                "part": "id",
+                "forMine": "true",
+                "type": "video",
+                "maxResults": max_results,
+            },
+        )
+        return [item["id"]["videoId"] for item in data.get("items", [])]
+
+    async def get_videos_by_ids(self, video_ids: list[str]) -> list[dict]:
+        if not video_ids:
+            return []
+        data = await self._get(
+            YOUTUBE_VIDEOS_URL,
+            params={
+                "part": "snippet,contentDetails,status",
+                "id": ",".join(video_ids),
+            },
+        )
+        return data.get("items", [])
+
 
 class YouTubeAnalyticsClient:
     def __init__(self, client: httpx.AsyncClient, access_token: str) -> None:
@@ -47,7 +73,6 @@ class YouTubeAnalyticsClient:
         end_date: date,
         metrics: str,
     ) -> dict:
-       
         response = await self._client.get(
             YOUTUBE_ANALYTICS_URL,
             params={
@@ -58,6 +83,11 @@ class YouTubeAnalyticsClient:
             },
             headers=self._headers,
         )
+
+        if response.status_code == 500:
+            metric_names = metrics.split(",")
+            return {name: 0 for name in metric_names}
+
         if response.status_code != 200:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
