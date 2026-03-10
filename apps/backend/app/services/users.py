@@ -27,7 +27,7 @@ async def get_user_by_email(email: str, db: AsyncSession = Depends(get_db)):
     rep: UserRepository = UserRepository(db)
     user = await rep.get_by_email(email)
 
-    if(user == None):
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="User dont exists",

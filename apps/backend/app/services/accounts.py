@@ -156,11 +156,11 @@ async def sync_user_account_statistics(user_id: int, db: AsyncSession) -> None:
     await account_repo.update_last_sync(account.id)
 
 async def sync_all_data(user_id: int, db: AsyncSession) -> None:
-        access_token = await get_valid_access_token(user_id, db)
-        
-        await sync_user_account_statistics(user_id, db)
-        await sync_videos(user_id, db, access_token)
-    
+    access_token = await get_valid_access_token(user_id, db)
+
+    await sync_user_account_statistics(user_id, db)
+    await sync_videos(user_id, db, access_token)
+
 async def get_account_statistics(
     user_id: int, period_type: PeriodType, db: AsyncSession
 ) -> AccountStatisticsResponse:
