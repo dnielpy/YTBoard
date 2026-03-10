@@ -1,16 +1,23 @@
 from pydantic import BaseModel, ConfigDict
-from datetime import datetime
+from typing import Optional
+from app.models.models import PeriodType
 
-class AccountSnapshotBase(BaseModel):
-    followers_count: int
-    views_count: int
-    video_count: int
 
-class AccountSnapshotCreate(AccountSnapshotBase):
+class AccountStatisticsBase(BaseModel):
+    period_type: PeriodType
+    followers: int = 0
+    total_views: int = 0
+    total_revenue: Optional[float] = None
+    total_min_watched: int = 0
+    total_likes: int = 0
+
+
+class AccountStatisticsCreate(AccountStatisticsBase):
     pass
 
-class AccountSnapshotResponse(AccountSnapshotBase):
+
+class AccountStatisticsResponse(AccountStatisticsBase):
     id: int
-    date: datetime
     account_id: int
+
     model_config = ConfigDict(from_attributes=True)

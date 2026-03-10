@@ -2,18 +2,24 @@ from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional
 
+
 class AccountBase(BaseModel):
     platform_account_id: str
-    handle: str
+    handle: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+
+
 class AccountCreate(AccountBase):
-    platform_id: int
     access_token: str
     refresh_token: Optional[str] = None
+    token_expires_at: Optional[datetime] = None
+
 
 class AccountResponse(AccountBase):
     id: int
     user_id: int
-    platform_id: int
-    avatar_url: Optional[str] = None
+    last_sync: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
