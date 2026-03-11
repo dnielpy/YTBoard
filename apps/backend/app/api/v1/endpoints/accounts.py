@@ -1,28 +1,24 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.api.deps import get_current_user
 from app.core.config import settings
 from app.db.database import get_db
 from app.models.models import PeriodType, User
+from app.schemas.account_statistics import AccountStatisticsResponse
 from app.schemas.google_oauth import (
     GoogleAuthUrlResponse,
     GoogleConnectRequest,
     GoogleConnectResponse,
 )
-from app.services.accounts import (
-    connect_google_account,
-    disconnect_google_account,
-    get_account_statistics as fetch_account_statistics,
-    get_connected_account,
-    sync_all_data,
-)
-from app.schemas.account_statistics import AccountStatisticsResponse
+from app.services.accounts import connect_google_account, disconnect_google_account
+from app.services.accounts import get_account_statistics as fetch_account_statistics
+from app.services.accounts import get_connected_account, sync_all_data
 from app.services.google_oauth import build_auth_url
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter()
+
 
 @router.get("/google/auth-url", response_model=GoogleAuthUrlResponse)
 async def get_google_auth_url(
@@ -84,6 +80,7 @@ async def disconnect_google(
     await disconnect_google_account(current_user.id, db)
     return {"detail": "YouTube account disconnected successfully"}
 
+
 @router.get("/sync")
 async def sync_account(
     current_user: User = Depends(get_current_user),
@@ -91,6 +88,7 @@ async def sync_account(
 ) -> Any:
     await sync_all_data(current_user.id, db)
     return {"detail": "YouTube account synced successfully"}
+
 
 @router.get("/stats", response_model=AccountStatisticsResponse)
 async def get_account_statistics_endpoint(

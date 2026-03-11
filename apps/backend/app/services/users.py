@@ -1,11 +1,11 @@
-from app.schemas.user import UserCreate
-from app.models.models import User
 from app.core.security import get_password_hash
-from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends, HTTPException
-from starlette import status
 from app.db.database import get_db
 from app.repositories.user_repository import UserRepository
+from app.schemas.user import UserCreate
+from fastapi import Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from starlette import status
+
 
 async def create_user(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
     rep: UserRepository = UserRepository(db)
@@ -34,4 +34,3 @@ async def get_user_by_email(email: str, db: AsyncSession = Depends(get_db)):
         )
 
     return user
-

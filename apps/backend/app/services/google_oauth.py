@@ -1,11 +1,10 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
 
 import httpx
-from fastapi import HTTPException, status
-
 from app.core.config import settings
 from app.services.youtube_api.client import YouTubeDataClient
+from fastapi import HTTPException, status
 
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_REVOKE_URL = "https://oauth2.googleapis.com/revoke"

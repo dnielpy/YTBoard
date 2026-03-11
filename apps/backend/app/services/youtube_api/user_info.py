@@ -1,8 +1,7 @@
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from typing import Optional
 
 import httpx
-
 from app.models.models import PeriodType
 from app.services.youtube_api.client import YouTubeAnalyticsClient, YouTubeDataClient
 from app.services.youtube_api.constants import ANALYTICS_METRICS
@@ -24,7 +23,9 @@ async def fetch_account_statistics(
 
         channel_data = {
             "subscriber_count": int(statistics.get("subscriberCount", 0)),
-            "published_at": snippet.get("publishedAt"),  # ISO 8601 e.g. "2012-04-23T18:25:43.000Z"
+            "published_at": snippet.get(
+                "publishedAt"
+            ),  # ISO 8601 e.g. "2012-04-23T18:25:43.000Z"
         }
 
         if channel_published_at:
@@ -50,7 +51,9 @@ async def fetch_account_statistics(
 
         periods: dict[PeriodType, dict] = {}
         for period_type, start_date in period_ranges.items():
-            report = await analytics_client.get_report(start_date, today, ANALYTICS_METRICS)
+            report = await analytics_client.get_report(
+                start_date, today, ANALYTICS_METRICS
+            )
             periods[period_type] = {
                 "total_views": int(report.get("views", 0)),
                 "total_min_watched": int(report.get("estimatedMinutesWatched", 0)),

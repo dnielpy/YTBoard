@@ -20,4 +20,3 @@ __all__ = [
     "YOUTUBE_ANALYTICS_URL",
     "ANALYTICS_METRICS",
 ]
-

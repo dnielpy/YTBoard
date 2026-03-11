@@ -2,10 +2,9 @@
 from datetime import datetime, timezone
 from typing import Optional
 
+from app.models.models import Account
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.models.models import Account
 
 
 class AccountRepository:

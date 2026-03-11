@@ -1,10 +1,9 @@
 # app/repositories/account_statistics_repository.py
 from typing import Optional
 
+from app.models.models import AccountStatistics, PeriodType
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.models.models import AccountStatistics, PeriodType
 
 
 class AccountStatisticsRepository:

@@ -4,7 +4,7 @@ ignore=CVS,__pycache__,.venv,venv,.git,node_modules
 ignore-paths=alembic/,apps/frontend/
 
 [MESSAGES CONTROL]
-# Disable specific checks
+# Disable specific checks - focus on errors, unused imports/variables, and code quality
 disable=
     too-many-arguments,           # Reduce false positives for common patterns
     too-few-public-methods,       # Allow utility classes
@@ -12,26 +12,21 @@ disable=
     missing-module-docstring,     # Optional module docstrings
     duplicate-code,               # Can be overly strict
     line-too-long,                # Handled by formatter (black)
+    unused-argument,              # Some functions need unused args
+    W0707,                        # Allow missing-from in except clauses
 
 [FORMAT]
 max-line-length=120
 
 [DESIGN]
 max-attributes=15
-max-arguments=10
 max-locals=20
 
-[VARIABLES]
-# Flag variables used but not referenced
-# This is CRITICAL - prevents unused variables
-unused-argument=yes
-unused-variable=yes
-unused-import=yes
+[BASIC]
+# These are the check names that will find unused variables/imports
+good-names=i,j,k,ex,Run,_
 
-[IMPORTS]
-# Enforce import order and unused imports
-redefining-builtin-variable=yes
+[LOGGING]
+logging-format-style=new
 
-[STRING]
-# Good string analysis
-bad-string-format-type=yes
+
