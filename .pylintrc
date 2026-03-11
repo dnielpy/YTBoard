@@ -1,0 +1,37 @@
+[MASTER]
+# Add files or directories to the blacklist
+ignore=CVS,__pycache__,.venv,venv,.git,node_modules
+ignore-paths=alembic/,apps/frontend/
+
+[MESSAGES CONTROL]
+# Disable specific checks
+disable=
+    too-many-arguments,           # Reduce false positives for common patterns
+    too-few-public-methods,       # Allow utility classes
+    too-many-instance-attributes, # Pydantic models have many attributes
+    missing-module-docstring,     # Optional module docstrings
+    duplicate-code,               # Can be overly strict
+    line-too-long,                # Handled by formatter (black)
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+max-attributes=15
+max-arguments=10
+max-locals=20
+
+[VARIABLES]
+# Flag variables used but not referenced
+# This is CRITICAL - prevents unused variables
+unused-argument=yes
+unused-variable=yes
+unused-import=yes
+
+[IMPORTS]
+# Enforce import order and unused imports
+redefining-builtin-variable=yes
+
+[STRING]
+# Good string analysis
+bad-string-format-type=yes

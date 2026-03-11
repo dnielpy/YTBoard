@@ -56,3 +56,10 @@ uvicorn==0.32.0
 uvloop==0.22.1
 watchfiles==1.1.1
 websockets==16.0
+
+# Code quality & linting tools
+pylint==3.3.2
+black==25.1.0
+isort==5.13.2
+mypy==1.15.0
+flake8==7.1.1

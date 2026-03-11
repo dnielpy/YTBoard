@@ -13,7 +13,7 @@ async def fetch_videos(access_token: str) -> list[dict]:
     async with httpx.AsyncClient() as client:
         data_client = YouTubeDataClient(client, access_token)
 
-        video_ids = await data_client.search_my_videos(max_results=50)
+        video_ids = await data_client.search_my_videos(max_results=100)
         if not video_ids:
             return []
 
