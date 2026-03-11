@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Monitor, Smartphone, Tablet } from "lucide-react";
 import { DesktopPreview } from "./devices-preview/desktop-preview";
-import { MobilePreview } from "./devices-preview/mobile-desktop";
+import { MobilePreview } from "./devices-preview/mobile-preview";
 import { TabletPreview } from "./devices-preview/tablet-preview";
 
 interface ThumbnailPreviewProps {
