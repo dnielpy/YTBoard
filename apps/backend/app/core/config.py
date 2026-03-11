@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost/ytboard_db"
     DATABASE_ECHO: bool = False
 
+    # CORS
+    CORS_ORIGINS: list[str] = ["http://localhost:4000"]
+
     class Config:
         case_sensitive = True
         env_file = ".env"
