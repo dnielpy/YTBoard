@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/common/page-header";
 import { getTranslations } from "next-intl/server";
-import { VideosPanel } from "../components/videos-panel";
+import { MaitenancePage } from "@/components/system/maintenance-page";
 
 export const YoutubeStatisticsContainer = async () => {
   const t = await getTranslations("youtube.statistics");
@@ -13,7 +13,7 @@ export const YoutubeStatisticsContainer = async () => {
         subtitle={t("header.subtitle")}
       />
       <div className="mt-6">
-        <VideosPanel />
+        <MaitenancePage></MaitenancePage>
       </div>
     </div>
   );

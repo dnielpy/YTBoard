@@ -1,20 +1,10 @@
 import { ReactNode } from "react";
 import { cookies } from "next/headers";
-import { Geist, Geist_Mono } from "next/font/google";
 import { routing } from "@/app/i18n/routing";
+import { geistMono, geistSans } from "@/app/fonts";
 import "@/app/globals.css";
 
 type Locale = (typeof routing.locales)[number];
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default async function RootLayout({
   children,

@@ -44,33 +44,33 @@ export async function getGoogleAuthUrl(
     ? `?redirect_uri=${encodeURIComponent(redirectUri)}`
     : "";
   return apiClient<GoogleAuthUrlResponse>(
-    `/api/v1/accounts/google/auth-url${params}`,
+    `/api/v1/account/google/auth-url${params}`,
   );
 }
 
 export async function connectGoogleAccount(
   data: GoogleConnectRequest,
 ): Promise<GoogleConnectResponse> {
-  return apiClient<GoogleConnectResponse>("/api/v1/accounts/google/connect", {
+  return apiClient<GoogleConnectResponse>("/api/v1/account/google/connect", {
     method: "POST",
     body: data,
   });
 }
 
 export async function getConnectedAccount(): Promise<ConnectedAccount> {
-  return apiClient<ConnectedAccount>("/api/v1/accounts/me");
+  return apiClient<ConnectedAccount>("/api/v1/account/me");
 }
 
 export async function disconnectGoogleAccount(): Promise<{ detail: string }> {
-  return apiClient<{ detail: string }>("/api/v1/accounts/google/disconnect", {
+  return apiClient<{ detail: string }>("/api/v1/account/google/disconnect", {
     method: "DELETE",
   });
 }
 
 export async function syncAccount(): Promise<{ detail: string }> {
-  return apiClient<{ detail: string }>("/api/v1/accounts/sync");
+  return apiClient<{ detail: string }>("/api/v1/account/sync");
 }
 
 export async function getVideos(): Promise<VideoResponse[]> {
-  return apiClient<VideoResponse[]>("/api/v1/accounts/videos");
+  return apiClient<VideoResponse[]>("/api/v1/videos");
 }

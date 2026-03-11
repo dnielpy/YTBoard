@@ -18,11 +18,8 @@ from app.services.accounts import (
     get_account_statistics as fetch_account_statistics,
     get_connected_account,
     sync_all_data,
-    sync_user_account_statistics,
 )
-from app.services.videos import get_videos
 from app.schemas.account_statistics import AccountStatisticsResponse
-from app.schemas.video import VideoResponse
 from app.services.google_oauth import build_auth_url
 
 router = APIRouter()
@@ -54,8 +51,8 @@ async def connect_google(
     return GoogleConnectResponse(**result)
 
 
-@router.get("/me")
-async def get_my_account(
+@router.get("")
+async def get_account(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> Any:
@@ -67,6 +64,15 @@ async def get_my_account(
             detail="No YouTube account connected",
         )
     return account
+
+
+@router.get("/me")
+async def get_my_account(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> Any:
+    """Backward-compatible alias for the connected YouTube account."""
+    return await get_account(current_user=current_user, db=db)
 
 
 @router.delete("/google/disconnect")
@@ -86,17 +92,10 @@ async def sync_account(
     await sync_all_data(current_user.id, db)
     return {"detail": "YouTube account synced successfully"}
 
-@router.get("/statistics", response_model=AccountStatisticsResponse)
+@router.get("/stats", response_model=AccountStatisticsResponse)
 async def get_account_statistics_endpoint(
     period_type: PeriodType,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> Any:
     return await fetch_account_statistics(current_user.id, period_type, db)
-
-@router.get("/videos", response_model=list[VideoResponse])
-async def get_videos_endpoint(
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-) -> Any:
-    return await get_videos(current_user.id, db)

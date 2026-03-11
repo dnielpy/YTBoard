@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { geistMono, geistSans } from "@/app/fonts";
 import { AppSidebar } from "@/components/system/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { generateStaticParams } from "@/app/i18n/generate-static-params";
@@ -8,16 +8,6 @@ import { ReactNode } from "react";
 import "@/app/globals.css";
 
 export { generateStaticParams };
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,19 +24,13 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   return (
-    <html lang={locale}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Providers locale={locale}>
-          <SidebarProvider>
-            <AppSidebar />
-            <div className="flex min-h-screen flex-1 flex-col bg-background text-foreground">
-              <main className="flex-1 px-6 pb-10">{children}</main>
-            </div>
-          </SidebarProvider>
-        </Providers>
-      </body>
-    </html>
+    <Providers locale={locale}>
+      <SidebarProvider>
+        <AppSidebar />
+        <div className="flex min-h-screen flex-1 flex-col bg-background text-foreground">
+          <main className="flex-1 px-6 pb-10">{children}</main>
+        </div>
+      </SidebarProvider>
+    </Providers>
   );
 }
