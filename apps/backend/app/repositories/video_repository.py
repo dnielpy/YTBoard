@@ -1,10 +1,9 @@
 # app/repositories/video_repository.py
 from typing import Optional
 
+from app.models.models import PeriodType, Video, VideoStatistics
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.models.models import Video, VideoStatistics, PeriodType
 
 
 class VideoRepository:
@@ -77,7 +76,9 @@ class VideoStatisticsRepository:
             for key, value in kwargs.items():
                 setattr(stats, key, value)
         else:
-            stats = VideoStatistics(video_id=video_id, period_type=period_type, **kwargs)
+            stats = VideoStatistics(
+                video_id=video_id, period_type=period_type, **kwargs
+            )
             self.db.add(stats)
 
         await self.db.commit()

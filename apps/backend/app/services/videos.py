@@ -1,10 +1,9 @@
-from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.repositories.account_repository import AccountRepository
 from app.repositories.video_repository import VideoRepository
 from app.schemas.video import VideoResponse
 from app.services.youtube_api.videos import fetch_videos
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 async def sync_videos(user_id: int, db: AsyncSession, access_token: str) -> None:
@@ -26,6 +25,7 @@ async def sync_videos(user_id: int, db: AsyncSession, access_token: str) -> None
             video_id=video_data.pop("video_id"),
             **video_data,
         )
+
 
 async def get_videos(user_id: int, db: AsyncSession) -> list[VideoResponse]:
     account_repo = AccountRepository(db)

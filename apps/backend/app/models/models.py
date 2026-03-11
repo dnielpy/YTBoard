@@ -2,7 +2,9 @@ import enum
 from datetime import datetime, timezone
 from typing import List, Optional
 
-from sqlalchemy import String, Integer, DateTime, ForeignKey, BigInteger, Numeric, Enum as SAEnum
+from sqlalchemy import BigInteger, DateTime
+from sqlalchemy import Enum as SAEnum
+from sqlalchemy import ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..db.database import Base
@@ -51,7 +53,9 @@ class Account(Base):
     )
 
     user: Mapped["User"] = relationship(back_populates="accounts")
-    statistics: Mapped[List["AccountStatistics"]] = relationship(back_populates="account")
+    statistics: Mapped[List["AccountStatistics"]] = relationship(
+        back_populates="account"
+    )
     videos: Mapped[List["Video"]] = relationship(back_populates="account")
 
 
@@ -67,7 +71,9 @@ class AccountStatistics(Base):
 
     followers: Mapped[int] = mapped_column(BigInteger, default=0)
     total_views: Mapped[int] = mapped_column(BigInteger, default=0)
-    total_revenue: Mapped[Optional[float]] = mapped_column(Numeric(12, 2), nullable=True)
+    total_revenue: Mapped[Optional[float]] = mapped_column(
+        Numeric(12, 2), nullable=True
+    )
     total_min_watched: Mapped[int] = mapped_column(BigInteger, default=0)
     total_likes: Mapped[int] = mapped_column(BigInteger, default=0)
 
@@ -84,7 +90,9 @@ class Video(Base):
     title: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     description: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     thumbnail_url: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    published_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     duration: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     privacy: Mapped[Optional[str]] = mapped_column(String, nullable=True)
 
@@ -105,6 +113,8 @@ class VideoStatistics(Base):
     total_views: Mapped[int] = mapped_column(BigInteger, default=0)
     followers_gained: Mapped[int] = mapped_column(Integer, default=0)
     likes: Mapped[int] = mapped_column(Integer, default=0)
-    estimated_revenue: Mapped[Optional[float]] = mapped_column(Numeric(12, 2), nullable=True)
+    estimated_revenue: Mapped[Optional[float]] = mapped_column(
+        Numeric(12, 2), nullable=True
+    )
 
     video: Mapped["Video"] = relationship(back_populates="statistics")

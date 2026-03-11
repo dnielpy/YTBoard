@@ -1,14 +1,14 @@
 from datetime import date
 
 import httpx
-from fastapi import HTTPException, status
-
 from app.services.youtube_api.constants import (
     YOUTUBE_ANALYTICS_URL,
     YOUTUBE_CHANNELS_URL,
     YOUTUBE_SEARCH_URL,
     YOUTUBE_VIDEOS_URL,
 )
+from fastapi import HTTPException, status
+
 
 class YouTubeDataClient:
     def __init__(self, client: httpx.AsyncClient, access_token: str) -> None:

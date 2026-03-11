@@ -5,7 +5,6 @@ Fetch video metadata from the YouTube Data API v3.
 from datetime import datetime, timezone
 
 import httpx
-
 from app.services.youtube_api.client import YouTubeDataClient
 
 

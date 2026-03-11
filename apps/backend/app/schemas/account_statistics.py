@@ -1,6 +1,7 @@
-from pydantic import BaseModel, ConfigDict
 from typing import Optional
+
 from app.models.models import PeriodType
+from pydantic import BaseModel, ConfigDict
 
 
 class AccountStatisticsBase(BaseModel):

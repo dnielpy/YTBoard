@@ -1,7 +1,8 @@
 # app/repositories/user_repository.py
+from app.models.models import User
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.models import User
+
 
 class UserRepository:
     def __init__(self, db: AsyncSession):
@@ -9,9 +10,9 @@ class UserRepository:
 
     async def get_by_id(self, user_id: int) -> User | None:
         query = select(User).where(User.id == user_id)
-        
+
         result = await self.db.execute(query)
-        
+
         return result.scalars().first()
 
     async def get_by_email(self, email: str) -> User | None:

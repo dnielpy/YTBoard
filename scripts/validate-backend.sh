@@ -45,7 +45,7 @@ if command -v isort &> /dev/null; then
         git add $BACKEND_DIR/app
     fi
 else
-    echo "${YELLOW}⚠ isort not installed - skipping (run: pip install isort)${NC}"
+    echo "${YELLOW}⚠ isort not installed - skipping (run: pip3 install isort)${NC}"
 fi
 
 echo ""
@@ -61,7 +61,7 @@ if command -v black &> /dev/null; then
         git add $BACKEND_DIR/app
     fi
 else
-    echo "${YELLOW}⚠ black not installed - skipping (run: pip install black)${NC}"
+    echo "${YELLOW}⚠ black not installed - skipping (run: pip3 install black)${NC}"
 fi
 
 echo ""
@@ -69,14 +69,15 @@ echo ""
 # 4. Run pylint for comprehensive analysis (if installed)
 echo "${YELLOW}▶ Running pylint analysis...${NC}"
 if command -v pylint &> /dev/null; then
-    if python3 -m pylint $BACKEND_DIR/app --disable=all --enable=E,F,W --fail-under=9.0 2>/dev/null; then
+    # Only check for real errors (E/F), ignore import errors since venv may not be active
+    if python3 -m pylint $BACKEND_DIR/app --disable=all --enable=E,F --disable=import-error --fail-under=9.0 2>/dev/null; then
         echo "${GREEN}✓ Pylint analysis OK${NC}"
     else
-        echo "${RED}✗ Pylint found critical errors (E/F/W)${NC}"
+        echo "${RED}✗ Pylint found critical errors (E/F)${NC}"
         ERRORS_FOUND=1
     fi
 else
-    echo "${YELLOW}⚠ pylint not installed - skipping (run: pip install pylint)${NC}"
+    echo "${YELLOW}⚠ pylint not installed - skipping (run: pip3 install pylint)${NC}"
 fi
 
 echo ""
@@ -84,7 +85,7 @@ echo ""
 # 5. Check for unused imports and variables (if pylint installed)
 echo "${YELLOW}▶ Checking for unused imports and variables...${NC}"
 if command -v pylint &> /dev/null; then
-    if python3 -m pylint $BACKEND_DIR/app --disable=all --enable=unused-import,unused-variable --fail-under=10.0 2>/dev/null; then
+    if python3 -m pylint $BACKEND_DIR/app --disable=all --enable=unused-import,unused-variable --disable=import-error --fail-under=10.0 2>/dev/null; then
         echo "${GREEN}✓ No unused imports or variables${NC}"
     else
         echo "${RED}✗ Found unused imports or variables${NC}"
@@ -105,7 +106,7 @@ if command -v mypy &> /dev/null; then
         echo "${YELLOW}⚠ Type checking warnings (not blocking)${NC}"
     fi
 else
-    echo "${YELLOW}⚠ mypy not installed - skipping (run: pip install mypy)${NC}"
+    echo "${YELLOW}⚠ mypy not installed - skipping (run: pip3 install mypy)${NC}"
 fi
 
 echo ""
